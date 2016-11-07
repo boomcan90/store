@@ -59,7 +59,9 @@ environment variables
 Then run the following commands to bootstrap your environment and ensure
 that ``flask test`` runs smoothly. Check that ``pip --version`` references the anaconda
 path for python.
-Example:``pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site-packages (python 3.5)`` ::
+Example:``pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site-packages (python 3.5)``
+
+.. code-block :: bash
 
     git clone https://github.com/robin-lee/store
     cd store
@@ -84,7 +86,9 @@ For a successful run, you will see a pretty welcome screen. Explore the various 
     :scale: 50
 
 Once you have installed your DBMS, run the following to create your app's
-database tables and perform the initial migration ::
+database tables and perform the initial migration.
+
+.. code-block :: bash
 
     flask db init
     flask db migrate
