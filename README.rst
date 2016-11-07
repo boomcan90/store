@@ -8,11 +8,31 @@ Project is based off this cookiecutter skeleton_.
 
 Setup
 ----------
+
+If you are using pip3:
 First, you need to install virtualenv_. This ensures that you only have the necessary
 packages for this project. You don't want to pollute the global python "namespace"
 with many libraries you might not need.
 
 .. _virtualenv: https://virtualenv.pypa.io/en/stable/installation/
+
+If you are using conda:
+You shouldn't need to do anything here. You just need to know how to create a virtual
+environment in conda for python.
+
+Creation, activation and deactivation.
+.. code-block:: bash
+    conda create -n bookstore python
+    source activate bookstore
+    source deactivate
+
+You will see something like this in terminal:
+..code-block:: bash
+    (bookstore) robin-lee: <cursor>
+
+Further instructions will be for conda.
+
+
 
 
 Quickstart
@@ -32,17 +52,20 @@ environment variables ::
     export FLASK_DEBUG=1
 
 Then run the following commands to bootstrap your environment and ensure
-that `flask test` runs smoothly::
+that `flask test` runs smoothly. Check that `pip --version` references the anaconda
+path for python `pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site-packages (python 3.5)`::
 
     git clone https://github.com/robin-lee/store
     cd store
-    virtualenv venv
-    . venv/bin/activate
-    deactivate
+    conda create -n bookstore python
+    source activate bookstore
     pip install -r requirements/dev.txt
     bower install
     flask test
     flask run
+
+You will see this for successful tests.
+.. image:: doc_images/doc_test_success.png
 
 You will see a pretty welcome screen. Explore the various files and try to make sense of it.
 
