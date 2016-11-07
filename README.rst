@@ -11,13 +11,15 @@ Setup
 ----------
 
 You will need to have ``node`` and ``npm`` installed and you will need to use npm to install ``bower``.
-Instructions for `node and npm here`__. And for bower here.
-
-
+Instructions for `node and npm here`__. And for `bower here`__.
 
 .. _nodenpm: https://docs.npmjs.com/getting-started/installing-node
 
 __ nodenpm_
+
+.. _bowerlink: https://bower.io/#install-bower
+
+__ bowerlink_
 
 
 If you are using Ubuntu:
@@ -25,6 +27,7 @@ If you are using Ubuntu:
 You need to install python-dev and libpq-dev.
 
 .. code-block :: bash
+
     sudo apt install libpq-dev python3-dev
 
 If you are using pip3:
@@ -93,15 +96,13 @@ Example:``pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site
 You will see this for successful tests.
 
 .. image:: doc_images/doc_test_success.png
-    :width: 200
-    :scale: 50
+    :width: 400
 
 
 For a successful run, you will see a pretty welcome screen. Explore the various files and try to make sense of it.
 
 .. image:: doc_images/doc_welcome_success.png
-    :width: 200
-    :scale: 50
+    :width: 400
 
 Once you have installed your DBMS, run the following to create your app's
 database tables and perform the initial migration.
