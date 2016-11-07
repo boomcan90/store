@@ -65,6 +65,7 @@ path for python `pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3
     flask run
 
 You will see this for successful tests.
+
 .. image:: doc_images/doc_test_success.png
 
 You will see a pretty welcome screen. Explore the various files and try to make sense of it.
