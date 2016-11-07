@@ -21,13 +21,15 @@ You shouldn't need to do anything here. You just need to know how to create a vi
 environment in conda for python.
 
 Creation, activation and deactivation.
-.. code-block:: bash
+
+:: bash
     conda create -n bookstore python
     source activate bookstore
     source deactivate
 
 You will see something like this in terminal:
-..code-block:: bash
+
+:: bash
     (bookstore) robin-lee: <cursor>
 
 Further instructions will be for conda.
@@ -41,12 +43,14 @@ Quickstart
 First, set your app's secret key as an environment variable. For example,
 add the following to ``.bashrc`` or ``.bash_profile``.
 
-.. code-block:: bash
+:: bash
 
     export STORE_SECRET='something-really-secret'
 
 Before running shell commands, set the ``FLASK_APP`` and ``FLASK_DEBUG``
-environment variables ::
+environment variables
+
+:: bash
 
     export FLASK_APP=/path/to/autoapp.py
     export FLASK_DEBUG=1
@@ -67,8 +71,13 @@ path for python `pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3
 You will see this for successful tests.
 
 .. image:: doc_images/doc_test_success.png
+    :width: 400
 
-You will see a pretty welcome screen. Explore the various files and try to make sense of it.
+
+For a successful run, you will see a pretty welcome screen. Explore the various files and try to make sense of it.
+
+..image:: doc_images/doc_welcome_success.png
+    :width: 400
 
 Once you have installed your DBMS, run the following to create your app's
 database tables and perform the initial migration ::
