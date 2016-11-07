@@ -22,14 +22,14 @@ environment in conda for python.
 
 Creation, activation and deactivation.
 
-:: bash
+.. code-block :: bash
     conda create -n bookstore python
     source activate bookstore
     source deactivate
 
 You will see something like this in terminal:
 
-:: bash
+.. code-block :: bash
     (bookstore) robin-lee: <cursor>
 
 Further instructions will be for conda.
@@ -43,14 +43,14 @@ Quickstart
 First, set your app's secret key as an environment variable. For example,
 add the following to ``.bashrc`` or ``.bash_profile``.
 
-:: bash
+.. code-block :: bash
 
     export STORE_SECRET='something-really-secret'
 
 Before running shell commands, set the ``FLASK_APP`` and ``FLASK_DEBUG``
 environment variables
 
-:: bash
+.. code-block :: bash
 
     export FLASK_APP=/path/to/autoapp.py
     export FLASK_DEBUG=1
@@ -71,13 +71,15 @@ path for python `pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3
 You will see this for successful tests.
 
 .. image:: doc_images/doc_test_success.png
-    :width: 400
+    :width: 200
+    :scale: 50
 
 
 For a successful run, you will see a pretty welcome screen. Explore the various files and try to make sense of it.
 
-..image:: doc_images/doc_welcome_success.png
-    :width: 400
+.. image:: doc_images/doc_welcome_success.png
+    :width: 200
+    :scale: 50
 
 Once you have installed your DBMS, run the following to create your app's
 database tables and perform the initial migration ::
