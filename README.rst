@@ -10,6 +10,23 @@ Project is based off this cookiecutter skeleton_.
 Setup
 ----------
 
+You will need to have ``node`` and ``npm`` installed and you will need to use npm to install ``bower``.
+Instructions for `node and npm here`__a. And for bower here.
+
+
+
+.. _nodenpm: https://docs.npmjs.com/getting-started/installing-node
+
+__a nodenpm_
+
+
+If you are using Ubuntu:
+
+You need to install python-dev and libpq-dev.
+
+.. code-block :: bash
+    sudo apt install libpq-dev python3-dev
+
 If you are using pip3:
 
 First, you need to install virtualenv_. This ensures that you only have the necessary
