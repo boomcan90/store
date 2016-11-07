@@ -11,13 +11,13 @@ Setup
 ----------
 
 You will need to have ``node`` and ``npm`` installed and you will need to use npm to install ``bower``.
-Instructions for `node and npm here`__a. And for bower here.
+Instructions for `node and npm here`__. And for bower here.
 
 
 
 .. _nodenpm: https://docs.npmjs.com/getting-started/installing-node
 
-__a nodenpm_
+__ nodenpm_
 
 
 If you are using Ubuntu:
