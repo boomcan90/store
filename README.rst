@@ -3,6 +3,8 @@ bookstore
 ===============================
 
 An online book store for our Database module.
+Project is based off this cookiecutter skeleton_.
+.. _skeleton: https://github.com/sloria/cookiecutter-flask
 
 Setup
 ----------
