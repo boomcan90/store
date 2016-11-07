@@ -59,7 +59,7 @@ environment variables
 Then run the following commands to bootstrap your environment and ensure
 that ``flask test`` runs smoothly. Check that ``pip --version`` references the anaconda
 path for python.
- Example:``pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site-packages (python 3.5)``::
+Example:``pip 8.1.2 from /Users/robin/anaconda/envs/bookstore/lib/python3.5/site-packages (python 3.5)`` ::
 
     git clone https://github.com/robin-lee/store
     cd store
