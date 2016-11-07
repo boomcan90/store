@@ -11,6 +11,7 @@ Setup
 ----------
 
 If you are using pip3:
+
 First, you need to install virtualenv_. This ensures that you only have the necessary
 packages for this project. You don't want to pollute the global python "namespace"
 with many libraries you might not need.
@@ -18,8 +19,8 @@ with many libraries you might not need.
 .. _virtualenv: https://virtualenv.pypa.io/en/stable/installation/
 
 If you are using conda:
-You shouldn't need to do anything here. You just need to know how to create a virtual
-environment in conda for python.
+
+You just need to know how to create a virtual environment in conda for python.
 
 Creation, activation and deactivation.
 
