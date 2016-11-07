@@ -23,6 +23,7 @@ environment in conda for python.
 Creation, activation and deactivation.
 
 .. code-block :: bash
+
     conda create -n bookstore python
     source activate bookstore
     source deactivate
@@ -30,11 +31,10 @@ Creation, activation and deactivation.
 You will see something like this in terminal:
 
 .. code-block :: bash
+
     (bookstore) robin-lee: <cursor>
 
 Further instructions will be for conda.
-
-
 
 
 Quickstart
