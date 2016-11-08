@@ -195,6 +195,7 @@ Git Work Flow
 7. To get updates. Check you are on YOUR master branch then fetch upstream.
 
 .. code-block :: bash
+
     git checkout master
     git fetch upstream
 
