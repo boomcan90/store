@@ -154,3 +154,75 @@ This will generate a new migration script. Then run ::
 To apply the migration.
 
 For a full migration command reference, run ``flask db --help``.
+
+
+Git Work Flow
+----------
+
+1. On Github, fork the orignal repository to create your own copy.
+2. Go to your forked repository page and clone it to your local environment (e.g. Desktop). You should have done the setup in the ``Getting Started`` section. If you have not please make sure it works.
+
+.. code-block :: bash
+
+    git clone https://github.com/<your-username>/store
+    cd store
+
+3. Activate environment.
+
+.. code-block :: bash
+
+    source activate bookstore
+
+4. Check that tests work.
+
+.. code-block :: bash
+
+    flask test
+
+5. Now to ensure that git is setup properly. Run the command below and you should see that you have exactly one remote called origin. ("Remotes" are like nicknames for the URLs of repositories - origin is one, for example.)
+
+.. code-block :: bash
+
+     git remote
+
+6. Add the original Github repository as a new remote and call it upstream. (Then try "git remote" again, you should now see two remotes listed.) When you cloned you cloned from your fork. Now we want to add the original (robin-lee) as a new remore so you can pull updates.
+
+.. code-block :: bash
+
+    git remote add upstream https://github.com/robin-lee/store.git
+    git remote
+
+7. To get updates. Check you are on YOUR master branch then fetch upstream.
+
+.. code-block :: bash
+    git checkout master
+    git fetch upstream
+
+8. Rewrite your master branch so that any commits of yours that aren't already in upstream/master are replayed on top of that other branch. This where there might be merge conflicts. You will want to always do this before starting work and before you make a pull-request.
+
+.. code-block :: bash
+
+    git rebase upstream/master
+
+9. After you have made changes you can push changes to your fork.
+
+.. code-block :: bash
+
+    git add templates/newfile.html
+    git add --all
+    git commit -m "Added newfile that shows important stuff."
+    git push origin master
+
+10. Now you will want to submit a pull request to the repo. Make sure your project is synced with latest updates from the original repository. ENSURE TESTS RUN SUCCESSFULLY. If not fix it.
+
+.. code-block :: bash
+
+    git fetch upstream
+    git rebase upstream/master
+    flask test
+
+11. Go to https://github.com/robin-lee/store/pulls and create new pull request.
+12. You should see something like: "base fork: robin-lee/store, base: master; head fork: <you-user>/store, compare: master".
+13. Confirm the code changes and create the pull request with a DESCRIPTIVE title and sensible comments.
+
+
