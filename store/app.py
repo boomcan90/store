@@ -2,7 +2,7 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from store import commands, public, user
+from store import commands, public, user, cellar
 from store.assets import assets
 from store.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
 from store.settings import ProdConfig
@@ -40,6 +40,13 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+
+    # add a URL prefix "/cellar" implies your routes will be prepended with /cellar
+    # E.g. book, order
+    # This way you "/" route in cellar will actually load otherwise you public's
+    # "/" route will override cellar's "/" route.
+    # Perhaps order of blueprints determines this behaviour.
+    app.register_blueprint(cellar.views.cellar_blueprint, url_prefix='/cellar')
     return None
 
 
