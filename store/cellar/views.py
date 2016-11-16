@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
+from store.cellar.models import Alcohol
 
 # setup blueprint
 # we are using a "divisional structure" so we need to say
@@ -23,8 +24,17 @@ def hello():
 def browse():
     '''
     This route should show a list of beer.
+    Nope.
     '''
     return "List of beer"
+
+@cellar_blueprint.route('/beers', methods=['GET'])
+def browse_list():
+    '''
+    This route really should show a json list of beer.
+    '''
+    result = Alcohol.query.all()
+    return jsonify(data = [x.to_json() for x in result])
 
 
 
