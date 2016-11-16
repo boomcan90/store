@@ -6,6 +6,8 @@ from factory.alchemy import SQLAlchemyModelFactory
 from store.database import db
 from store.user.models import User
 
+from store.cellar.models import Alcohol
+
 
 class BaseFactory(SQLAlchemyModelFactory):
     """Base factory."""
@@ -29,3 +31,18 @@ class UserFactory(BaseFactory):
         """Factory configuration."""
 
         model = User
+
+
+class AlcoholFactory(BaseFactory):
+    """Alcohol factory. 'factory' refers to the factory-boy plugin
+    http://factoryboy.readthedocs.io/en/latest/introduction.html
+    """
+
+    name = Sequence(lambda n: 'beer{0}'.format(n))
+    alcohol_type = 'beer'
+    quantity = 5
+
+    class Meta:
+        """Factory configuration."""
+
+        model = Alcohol
