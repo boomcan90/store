@@ -8,7 +8,7 @@ from store.app import create_app
 from store.database import db as _db
 from store.settings import TestConfig
 
-from .factories import UserFactory
+from .factories import UserFactory, AlcoholFactory
 
 
 @pytest.yield_fixture(scope='function')
@@ -49,3 +49,10 @@ def user(db):
     user = UserFactory(password='myprecious')
     db.session.commit()
     return user
+
+@pytest.fixture
+def alcohol(db):
+    """ Some alcohol for the tests."""
+    alcohol = AlcoholFactory()
+    db.session.commit()
+    return alcohol
