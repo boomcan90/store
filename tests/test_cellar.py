@@ -41,4 +41,13 @@ class TestRobTheCellar:
         # http://webtest.readthedocs.io/en/latest/api.html#webtest-response-testresponse
         assert "List of beer" in res
 
+    def test_browse_list_returns_empty_list(self, alcohol, testapp):
+        """
+        Range of beer available but its sold out instantly!
+
+        As this test accesses
+        """
+        res = testapp.get('/cellar/beers')
+
+        assert "data" in res
 
