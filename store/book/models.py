@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """Book models."""
 
-from store.database import Column, Model, db
+from store.database import Column, Model, SurrogatePK, db
 
-class Book(Model):
+class Book(SurrogatePK, Model):
     """book"""
 
     __tablename__= 'book'
-    isbn13 = Column(db.String(13), unique=True, nullable=False, primary_key = True)
+    isbn13 = Column(db.String(13), unique=True, nullable=False)
     title = Column(db.String(128), nullable=False)
     author = Column(db.String(128), nullable=False)
     publisher = Column(db.String(128), nullable=False)
@@ -17,14 +17,14 @@ class Book(Model):
     format = Column(db.String(9), nullable=False)
     keywords = Column(db.String(128), nullable=False)
     subject = Column(db.String(128), nullable=False)
-    quantity = Column(db.Integer,nullable=False, default=0)
+
         
     def __init__(self, isbn13, title, author, publisher, year_of_pub,
-        num_of_copies, price, format, keywords, subject, quantity):
+        num_of_copies, price, format, keywords, subject):
         db.Model.__init__(self, isbn13=isbn13, title=title, author=author,
          publisher=publisher, year_of_pub=year_of_pub,
           num_of_copies=num_of_copies, price=price, format=format,
-           keywords=keywords, subject=subject, quantity=quantity)
+           keywords=keywords, subject=subject)
 
     def __repr__(self):
         """Represent instance as a unique string."""
@@ -35,4 +35,5 @@ class Book(Model):
                 author=self.author,publisher=self.publisher,
                 year_of_pub=self.year_of_pub, num_of_copies= self.num_of_copies,
                 price=self.price,format=self.format,keywords=self.keywords,
-                subject=self.subject,quantity=self.quantity)
+                subject=self.subject)
+    
