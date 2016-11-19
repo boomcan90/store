@@ -46,6 +46,11 @@ docs/_build
 env/
 venv/
 
-#database
+# Database
 *.db
 migrations/
+
+# Unimportant static assets
+store/static/*
+
+*.py~
