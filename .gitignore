@@ -45,3 +45,7 @@ docs/_build
 # Virtualenvs
 env/
 venv/
+
+#database
+*.db
+migrations/
