@@ -46,5 +46,11 @@ docs/_build
 env/
 venv/
 
+<<<<<<< HEAD
 dev.db
 /migrations/
+=======
+#database
+*.db
+migrations/
+>>>>>>> c21fd23e724ff37df5d440bcffe4d4e079ae3e35
