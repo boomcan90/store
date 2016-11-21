@@ -2,12 +2,12 @@
 """Book models."""
 
 from store.database import Column, Model, SurrogatePK, db
-
-class Book(SurrogatePK, Model):
+from store.compat import basestring
+class Book(Model):
     """book"""
 
     __tablename__= 'book'
-    isbn13 = Column(db.String(13), unique=True, nullable=False)
+    isbn13 = Column(db.String(13), nullable=False, primary_key= True)
     title = Column(db.String(128), nullable=False)
     author = Column(db.String(128), nullable=False)
     publisher = Column(db.String(128), nullable=False)
@@ -37,3 +37,11 @@ class Book(SurrogatePK, Model):
                 price=self.price,format=self.format,keywords=self.keywords,
                 subject=self.subject)
     
+    @classmethod
+    def get_by_id(cls, isbn13):
+
+        if any(
+                (isinstance(isbn13, basestring),isinstance(isbn13,str)),
+        ):
+            return cls.query.get(str(isbn13))
+        return None
