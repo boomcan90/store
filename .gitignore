@@ -45,3 +45,6 @@ docs/_build
 # Virtualenvs
 env/
 venv/
+
+dev.db
+/migrations/
