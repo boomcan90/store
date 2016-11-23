@@ -6,6 +6,7 @@ from factory.alchemy import SQLAlchemyModelFactory
 from store.database import db
 from store.user.models import User
 from store.book.models import Book
+from store.orders.models import Order
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -52,3 +53,32 @@ class BookFactory(BaseFactory):
 
         model = Book
 
+
+class OrderFactory(BaseFactory):
+    """So you want to order a book, huh?"""
+
+    order_id = Sequence(lambda n: 'order{0}'.format(n))
+    # what is customer id here? there is a reference....?
+    customer_id = "THEANSWERIS42"
+    date = 
+    qty = 42
+    status = False
+
+    class Meta:
+        """Factory configuration."""
+
+        model = Order
+
+
+# class BooksInOrderFactory(BaseFactory):
+#     """What books do YOU have in your order?"""
+
+#     name = Sequence(lambda n: 'order{0}'.format(n))
+#     order_id = "THEANSWERIS42"
+#     isbn = ""
+#     qty = 42
+
+#     class Meta:
+#         """Factory configuration."""
+
+#         model = Order_Consists_Of
