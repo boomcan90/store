@@ -9,7 +9,7 @@ from store.settings import TestConfig
 
 from webtest import TestApp
 
-from .factories import CustomerFactory, UserFactory
+from .factories import CustomerFactory, UserFactory, OrderFactory
 
 
 @pytest.yield_fixture(scope='function')
@@ -51,10 +51,16 @@ def user(db):
     db.session.commit()
     return user
 
-
 @pytest.fixture
 def customer(db):
     """cutomer for testing"""
     customer = CustomerFactory(password='myprecious')
     db.session.commit()
     return customer
+
+@pytest.fixture
+def order(db):
+    """ Some orders for the tests."""
+    order = OrderFactory()
+    db.session.commit()
+    return order
