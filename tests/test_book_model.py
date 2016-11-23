@@ -15,7 +15,7 @@ class TestBook:
         book.save()
 
         # this method is inherited from a class in database.py
-        retrieved = Book.get_by_id(book.id)
+        retrieved = Book.get_by_id(book.isbn13)
         assert retrieved == book
 
     def test_retrieve_list_of_books(self):
