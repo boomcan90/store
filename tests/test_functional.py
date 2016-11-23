@@ -19,7 +19,7 @@ class TestLoggingIn:
         res = testapp.get('/')
         # Fills out login form in navbar
         form = res.forms['loginForm']
-        form['username'] = user.username
+        form['username'] = user.id
         form['password'] = 'myprecious'
         # Submits
         res = form.submit().follow()
@@ -30,7 +30,7 @@ class TestLoggingIn:
         res = testapp.get('/')
         # Fills out login form in navbar
         form = res.forms['loginForm']
-        form['username'] = user.username
+        form['username'] = user.id
         form['password'] = 'myprecious'
         # Submits
         res = form.submit().follow()
@@ -44,7 +44,7 @@ class TestLoggingIn:
         res = testapp.get('/')
         # Fills out login form, password incorrect
         form = res.forms['loginForm']
-        form['username'] = user.username
+        form['username'] = user.id
         form['password'] = 'wrong'
         # Submits
         res = form.submit()
@@ -110,7 +110,7 @@ class TestRegistering:
         res = testapp.get(url_for('public.register'))
         # Fills out form, but username is already registered
         form = res.forms['registerForm']
-        form['username'] = user.username
+        form['username'] = user.id
         form['email'] = 'foo@bar.com'
         form['password'] = 'secret'
         form['confirm'] = 'secret'
