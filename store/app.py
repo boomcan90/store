@@ -2,7 +2,7 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from store import commands, public, user, book
+from store import commands, public, user, book, orders
 from store.assets import assets
 from store.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
 from store.settings import ProdConfig
@@ -68,7 +68,8 @@ def register_shellcontext(app):
         return {
             'db': db,
             'User': user.models.User,
-            'book': book.models.Book
+            'book': book.models.Book,
+            'Order': orders.models.Order
             }
 
     app.shell_context_processor(shell_context)
