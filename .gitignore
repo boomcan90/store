@@ -45,3 +45,12 @@ docs/_build
 # Virtualenvs
 env/
 venv/
+
+# Database
+*.db
+migrations/
+
+# Unimportant static assets
+store/static/*
+
+*.py~

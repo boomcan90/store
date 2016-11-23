@@ -14,12 +14,16 @@ CREATE TABLE Consists_of (
     PRIMARY KEY(order_id, isbn)
 );
 """
+# how do you have a tuple for primary key????
 class Order_Consists_Of(SurrogatePK, Model):
     """books one order consists of."""
 
     __tablename__ = 'consists_of'
     order_id = Column(db.String(80), unique=True, nullable=False)
-    isbn = reference_col('customers', nullable=False)
+    # isbn = reference_col('customers', nullable=False)
+    # use ForeignKey here
+    isbn = Column(db.String(80), unique=True, ForeignKey='book.isbn', nullable=False)
+
     qty = Column(db.Integer, default=1)
 
     # what is this for? user = relationship('User', backref='roles')
@@ -31,6 +35,14 @@ class Order_Consists_Of(SurrogatePK, Model):
     def __repr__(self):
         """Represent instance as a unique string."""
         return '<Order_Consists_Of({order_id})>'.format(order_id=self.order_id)
+
+    def toJson(self):
+        """
+        Json because Master Lee said so. 
+        Also, because it makes sense and it can be used for views. 
+        Yeah.
+        """
+        return dict(id=self.order_id, isbn=self.isbn, quantity=self.qty)
 
 
 
@@ -54,7 +66,7 @@ class Order(SurrogatePK, Model):
     order_id = Column(db.String(80), unique=True, nullable=False, primary_key=True)
     # Foreign key- get name correctly later!
     # Is this how to create a foreign key? HOW TO USE reference_col??????
-    customer_id = Column(db.String(80), unique=True, ForeignKey='customers', nullable=False)
+    customer_id = Column(db.String(80), unique=True, ForeignKey='user.id', nullable=False)
     date = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     qty = Column(db.Integer, default=1)
     status = Column(db.Boolean(), default=True)
@@ -70,3 +82,10 @@ class Order(SurrogatePK, Model):
     def __repr__(self):
         """Represent instance as a unique string."""
         return '<Order({order_id!r})>'.format(order_id=self.order_id)
+
+    def toJson(self):
+        """
+        More json
+        Yeah.
+        """
+        return dict(id=self.order_id, customer=self.customer_id, status=self.status)
