@@ -29,7 +29,7 @@ class RegisterForm(Form):
         initial_validation = super(RegisterForm, self).validate()
         if not initial_validation:
             return False
-        user = User.query.filter_by(username=self.username.data).first()
+        user = User.query.filter_by(id=self.username.data).first()
         if user:
             self.username.errors.append('Username already registered')
             return False
