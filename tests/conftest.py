@@ -2,13 +2,14 @@
 """Defines fixtures available to all tests."""
 
 import pytest
-from webtest import TestApp
 
 from store.app import create_app
 from store.database import db as _db
 from store.settings import TestConfig
 
-from .factories import UserFactory
+from webtest import TestApp
+
+from .factories import CustomerFactory, UserFactory
 
 
 @pytest.yield_fixture(scope='function')
@@ -49,3 +50,11 @@ def user(db):
     user = UserFactory(password='myprecious')
     db.session.commit()
     return user
+
+
+@pytest.fixture
+def customer(db):
+    """cutomer for testing"""
+    customer = CustomerFactory(password='myprecious')
+    db.session.commit()
+    return customer

@@ -1,28 +1,13 @@
 # -*- coding: utf-8 -*-
 """User models."""
+
 import datetime as dt
 
 from flask_login import UserMixin
+
 from store.compat import basestring
-from store.database import Column, Model, SurrogatePK, db, reference_col, relationship
+from store.database import Column, Model, db
 from store.extensions import bcrypt
-
-
-# class Role(SurrogatePK, Model):
-#     """A role for a user."""
-
-#     __tablename__ = 'roles'
-#     name = Column(db.String(80), unique=True, nullable=False)
-#     user_id = reference_col('users', nullable=True)
-#     user = relationship('User', backref='roles')
-
-#     def __init__(self, name, **kwargs):
-#         """Create instance."""
-#         db.Model.__init__(self, name=name, **kwargs)
-
-#     def __repr__(self):
-#         """Represent instance as a unique string."""
-#         return '<Role({name})>'.format(name=self.name)
 
 
 class User(UserMixin, Model):
@@ -37,7 +22,9 @@ class User(UserMixin, Model):
     first_name = Column(db.String(30), nullable=True)
     last_name = Column(db.String(30), nullable=True)
     active = Column(db.Boolean(), default=False)
-    # is_admin = Column(db.Boolean(), default=False)
+    is_admin = Column(db.Boolean(), default=False)
+    user_type = Column('type', db.String(50))
+    __mapper_args__ = {'polymorphic_on': 'user_type'}
 
     def __init__(self, id, email, password=None, **kwargs):
         """Create instance."""

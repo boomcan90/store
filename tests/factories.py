@@ -3,9 +3,10 @@
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
+from store.book.models import Book
+from store.customer.models import Customer
 from store.database import db
 from store.user.models import User
-from store.book.models import Book
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -32,10 +33,22 @@ class UserFactory(BaseFactory):
         model = User
 
 
+class CustomerFactory(UserFactory):
+    """Customer Factory inherit from User Factory"""
+    m_credit_no = '1234567811121314'
+    phone_no = '12345678'
+    address = Sequence(
+        lambda n: '{0} Changi South Ave, Singapore, 485998'.format(n))
+
+    class Meta:
+
+        model = Customer
+
+
 class BookFactory(BaseFactory):
     """Book factory."""
 
-    isbn13= Sequence(lambda n: 'book{0}'.format(n))
+    isbn13 = Sequence(lambda n: 'book{0}'.format(n))
     # isbn13 = "book0"
     title = "Lalala"
     author = "Alvin Tan"
@@ -51,4 +64,3 @@ class BookFactory(BaseFactory):
         """Factory configuration."""
 
         model = Book
-
