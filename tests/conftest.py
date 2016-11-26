@@ -6,10 +6,11 @@ import pytest
 from store.app import create_app
 from store.database import db as _db
 from store.settings import TestConfig
-
 from webtest import TestApp
 
 from .factories import CustomerFactory, UserFactory, OrderFactory
+from .factories ConsistsOfFactory, BookFactory
+
 
 
 @pytest.yield_fixture(scope='function')
@@ -64,3 +65,11 @@ def order(db):
     order = OrderFactory()
     db.session.commit()
     return order
+
+@pytest.fixture
+def consistsof(db):
+    """ Some orders_consistsof for the tests."""
+    consistsof = ConsistsOfFactory()
+    db.session.commit()
+    return order
+
