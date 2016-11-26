@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Factories to help in tests."""
+import datetime
+import factory
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
@@ -7,6 +9,7 @@ from store.database import db
 from store.user.models import User
 from store.book.models import Book
 from store.orders.models import Order
+from store.orders.models import Order_Consists_Of
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -59,10 +62,7 @@ class OrderFactory(BaseFactory):
 
     order_id = Sequence(lambda n: 'order{0}'.format(n))
     # what is customer id here? there is a reference....?
-    customer_id = "THEANSWERIS42"
-    date = 
-    qty = 42
-    status = False
+    customer_id = Sequence(lambda n: 'customer{0}'.format(n)) 
 
     class Meta:
         """Factory configuration."""
@@ -70,15 +70,15 @@ class OrderFactory(BaseFactory):
         model = Order
 
 
-# class BooksInOrderFactory(BaseFactory):
-#     """What books do YOU have in your order?"""
+class ConsistsOfFactory(BaseFactory):
+    """What books do YOU have in your order?"""
 
-#     name = Sequence(lambda n: 'order{0}'.format(n))
-#     order_id = "THEANSWERIS42"
-#     isbn = ""
-#     qty = 42
+    # How do you get book isbn and order id of existing order?
+    consists_order_id = Sequence(lambda n: 'order{0}'.format(n))
+    consists_isbn13 = Sequence(lambda n: 'isbn13{0}'.format(n))
+    consists_qty = 42
 
-#     class Meta:
-#         """Factory configuration."""
+    class Meta:
+        """Factory configuration."""
 
-#         model = Order_Consists_Of
+        model = Order_Consists_Of

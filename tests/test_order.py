@@ -10,14 +10,14 @@ class TestBreakTheOrder:
     Breaking the order
     """
 
-    def test_orderr_is_not_not_found(self, testapp):
+    def test_order_is_not_not_found(self, testapp):
         """
         There actually is an order... Amazing. 
         I know, right?
         """
 
         # !!! URL needs the / at the end.
-        res = testapp.get('/order/')
+        res = testapp.get('/orders/')
         assert res.status_code != 404
 
     def test_order_is_accessible(self, testapp):
@@ -26,7 +26,7 @@ class TestBreakTheOrder:
         """
 
         # testapp made available from the tests module
-        res = testapp.get('/order/')
+        res = testapp.get('/orders/')
         assert res.status_code == 200
 
     def test_order_has_list_of_not_beer(self, testapp):
@@ -34,7 +34,7 @@ class TestBreakTheOrder:
         Range of beer is NOT available!
         Do I look like Robin?
         """
-        res = testapp.get('/order/orders')
+        res = testapp.get('/orders/orders')
 
         # i have discovered that "string" in res is case sensitive
         # in general to know more see:
@@ -45,6 +45,6 @@ class TestBreakTheOrder:
         """
         Range of order available?
         """
-        res = testapp.get('/order/ordersList')
+        res = testapp.get('/orders/ordersList')
 
         assert "data" in res

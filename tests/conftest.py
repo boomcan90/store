@@ -8,7 +8,7 @@ from store.app import create_app
 from store.database import db as _db
 from store.settings import TestConfig
 
-from .factories import UserFactory, OrderFactory
+from .factories import UserFactory, OrderFactory, ConsistsOfFactory, BookFactory
 
 
 @pytest.yield_fixture(scope='function')
@@ -54,5 +54,12 @@ def user(db):
 def order(db):
     """ Some orders for the tests."""
     order = OrderFactory()
+    db.session.commit()
+    return order
+
+@pytest.fixture
+def consistsof(db):
+    """ Some orders_consistsof for the tests."""
+    consistsof = ConsistsOfFactory()
     db.session.commit()
     return order

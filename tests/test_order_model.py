@@ -1,6 +1,5 @@
-
 # -*- coding: utf-8 -*-
-"""Cellar Model unit tests."""
+"""Order Model unit tests."""
 import datetime as dt
 
 import pytest
@@ -15,15 +14,15 @@ class TestOrder:
 
     def test_get_by_id(self):
         """Get Order by ID."""
-        order1 = Order('order1', 'CUSTOMERID', DATE, 42. False)
+        order1 = Order('order1', 'CUSTOMERID')
         order1.save()
 
         # this method is inherited from a class in database.py
-        retrieved = Order.get_by_id(order1.id)
-        assert retrieved == order1
+        retrieved = Order.get_by_id('order1')
+        assert retrieved.order_id == 'order1'
 
 
-    def test_retreive_list_of_beer(self):
+    def test_retreive_list_of_order(self):
         """Retrieve a list of orders."""
 
         order_list = []
