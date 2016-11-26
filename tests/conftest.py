@@ -9,7 +9,7 @@ from store.settings import TestConfig
 from webtest import TestApp
 
 from .factories import CustomerFactory, UserFactory, OrderFactory
-from .factories ConsistsOfFactory, BookFactory
+from .factories import ConsistsOfFactory, BookFactory
 
 
 

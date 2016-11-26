@@ -1,51 +1,9 @@
-# -*- coding: utf-8 -*-
-"""User models."""
-import datetime as dt
 """User models."""
 import datetime as dt
 from store.compat import basestring
 from store.database import Column, Model, SurrogatePK, db, reference_col, relationship
 from store.book.models import Book
 
-"""
-CREATE TABLE Consists_of (
-    order_id VARCHAR(20),
-    isbn VARCHAR(13),
-    qty INTEGER(100),
-    FOREIGN KEY order_id REFERENCES Order(order_id),
-    FOREIGN KEY isbn REFERENCES Book(isbn),
-    PRIMARY KEY(order_id, isbn)
-);
-"""
-# how do you have a tuple for primary key????
-class Order_Consists_Of(SurrogatePK, Model):
-    """books one order consists of."""
-
-    __tablename__ = 'consists_of'
-    order_id = Column(db.String(80), unique=True, nullable=False)
-    # isbn = reference_col('customers', nullable=False)
-    # use ForeignKey here
-    isbn = Column(db.String(80), unique=True, ForeignKey='book.isbn', nullable=False)
-
-    qty = Column(db.Integer, default=1)
-
-    # what is this for? user = relationship('User', backref='roles')
-
-    def __init__(self, order_id, isbn, **kwargs):
-        """Create instance."""
-        db.Model.__init__(self, order_id=order_id, isbn=isbn, **kwargs)
-
-    def __repr__(self):
-        """Represent instance as a unique string."""
-        return '<Order_Consists_Of({order_id})>'.format(order_id=self.order_id)
-
-    def toJson(self):
-        """
-        Json because Master Lee said so. 
-        Also, because it makes sense and it can be used for views. 
-        Yeah.
-        """
-        return dict(id=self.order_id, isbn=self.isbn, quantity=self.qty)
 
 
 """
@@ -74,6 +32,7 @@ class Order(Model):
     def __init__(self, order_id, customer_id, **kwargs):
         """Create instance."""
         db.Model.__init__(self, order_id=order_id, customer_id=customer_id, **kwargs)
+    
 
     @property
     def details(self):
@@ -89,6 +48,7 @@ class Order(Model):
         ):
             return cls.query.get(str(order_id))
         return None
+
 
     def __repr__(self):
         """Represent instance as a unique string."""
@@ -156,3 +116,4 @@ class Order_Consists_Of(Model):
         Yeah.
         """
         return dict(id=self.consists_order_id, isbn13=self.consists_isbn13, quantity=self.consists_qty)
+

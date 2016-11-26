@@ -76,16 +76,13 @@ class OrderFactory(BaseFactory):
 
     order_id = Sequence(lambda n: 'order{0}'.format(n))
     # what is customer id here? there is a reference....?
-    customer_id = "THEANSWERIS42"
-    date = 
-    qty = 42
-    status = False
     customer_id = Sequence(lambda n: 'customer{0}'.format(n)) 
 
     class Meta:
         """Factory configuration."""
 
         model = Order
+
 
 class ConsistsOfFactory(BaseFactory):
     """What books do YOU have in your order?"""

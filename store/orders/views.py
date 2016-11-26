@@ -6,9 +6,6 @@ from store.orders.models import Order, Order_Consists_Of
 
 order_blueprint = Blueprint('orders', __name__, url_prefix='/orders', static_folder='../static')
 
-@order_blueprint.route('/')
-@login_required
-
 consistsof_blueprint = Blueprint('consists_of', __name__, url_prefix='/consistsof', static_folder='../static') 
 
 
@@ -54,5 +51,4 @@ def browse_consistsof():
     '''
     result = Order_Consists_Of.query.all()
     return jsonify(data = [x.toJson() for x in result])
-
 
