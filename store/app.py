@@ -25,13 +25,13 @@ def create_app(config_object=ProdConfig):
 
 def register_extensions(app):
     """Register Flask extensions."""
-    assets.init_app(app)
+    # assets.init_app(app)
     bcrypt.init_app(app)
     cache.init_app(app)
     db.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
-    debug_toolbar.init_app(app)
+    # debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     return None
 
@@ -40,11 +40,6 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
-     # add a URL prefix "/cellar" implies your routes will be prepended with /cellar
-    # E.g. book, order
-    # This way you "/" route in cellar will actually load otherwise you public's
-    # "/" route will override cellar's "/" route.
-    # Perhaps order of blueprints determines this behaviour.
     app.register_blueprint(book.views.book_blueprint)
     app.register_blueprint(orders.views.order_blueprint)
     app.register_blueprint(orders.views.consistsof_blueprint)
