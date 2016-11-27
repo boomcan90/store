@@ -3,7 +3,7 @@
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user
 
 from store.public.forms import LoginForm
 
@@ -50,3 +50,12 @@ def register():
     else:
         flash_errors(form)
     return render_template('user/register.html', form=form)
+
+
+@blueprint.route('/logout/')
+@login_required
+def logout():
+    """Logout."""
+    logout_user()
+    flash('You are logged out.', 'info')
+    return redirect(url_for('public.home'))

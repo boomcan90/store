@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-
-from flask_login import login_required, logout_user
+from flask import Blueprint, render_template
 
 from store.extensions import login_manager
 # from store.public.forms import LoginForm
@@ -23,28 +21,6 @@ def load_user(user_id):
 def home():
     """Home page."""
     return render_template('index.html')
-
-
-@blueprint.route('/logout/')
-@login_required
-def logout():
-    """Logout."""
-    logout_user()
-    flash('You are logged out.', 'info')
-    return redirect(url_for('public.home'))
-
-
-# @blueprint.route('/register/', methods=['GET', 'POST'])
-# def register():
-#     """Register new user."""
-#     form = RegisterForm(request.form, csrf_enabled=False)
-#     if form.validate_on_submit():
-#         User.create(id=form.username.data, email=form.email.data, password=form.password.data, active=True)
-#         flash('Thank you for registering. You can now log in.', 'success')
-#         return redirect(url_for('public.home'))
-#     else:
-#         flash_errors(form)
-#     return render_template('public/register.html', form=form)
 
 
 # @blueprint.route('/about/')
