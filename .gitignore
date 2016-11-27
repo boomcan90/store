@@ -54,3 +54,6 @@ migrations/
 store/static/*
 
 *.py~
+
+#codekit3 config
+templates/config.codekit3
