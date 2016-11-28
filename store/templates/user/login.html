@@ -1,28 +1,34 @@
-<h1>Login</h1>
-<form id="loginForm" method="POST" class="navbar-form form-inline navbar-right" action="" role="login">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  <div class="form-group">
-    {{ form.username(placeholder="Username", class_="form-control") }}
-    {{ form.password(placeholder="Password", class_="form-control") }}
-  </div>
-  <button type="submit" class="btn btn-default">Log in</button>
-</form>
+{% extends "base_template.html"%}
+{% block content %}
+<section id="banner" class="clearfix">
+    <div id="banner_content_wrapper">
+          <h1 class='header login_header'>Login</h1>
+        <div id="poster">
+          <form id="loginForm" method="POST" class="navbar-form form-inline navbar-right" action="" role="login">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="form-group">
+              {{ form.username(placeholder="Username", class_="form-control") }}
+              {{ form.password(placeholder="Password", class_="form-control") }}
+            </div>
+            <button type="submit" class="button">Log in</button>
+          </form>
 
-<div role="main">
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<div class="row">
-  <div class="col-md-12">
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }}">
-      <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-     {{message}}
-    </div><!-- end .alert -->
-    {% endfor %}
-  </div><!-- end col-md -->
-</div><!-- end row -->
-    {% endif %}
-{% endwith %}
-
-{% block content %}{% endblock %}
-</div>
+          <div role="main">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="row">
+            <div class="col-md-12">
+              {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+               {{message}}
+              </div><!-- end .alert -->
+              {% endfor %}
+            </div><!-- end col-md -->
+          </div><!-- end row -->
+              {% endif %}
+          {% endwith %}
+          </div>
+        </div>
+        </section>
+{% endblock %}

@@ -1,1 +1,17 @@
-401
+{% extends "base_template.html"%}
+
+{% block content %}
+
+<section id="banner" class="clearfix">
+    <div id="banner_content_wrapper">
+        <div id="poster">
+            <h1 class="header">401 Unauthorized</h1>
+        </div>
+        <div id="content">
+            <p class="description">Oops! You're not authorised to view this content! You can click <a href="http://localhost:5000" class="home_link_error">here</a> to go home!</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
