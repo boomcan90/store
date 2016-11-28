@@ -50,9 +50,6 @@ venv/
 *.db
 migrations/
 
-# Unimportant static assets
-store/static/*
-
 *.py~
 
 #codekit3 config
