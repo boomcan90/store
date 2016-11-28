@@ -50,12 +50,12 @@ venv/
 *.db
 migrations/
 
-# Unimportant static assets
-store/static/*
-
 *.py~
 
 #codekit3 config
 templates/config.codekit3
 
 .cache/**
+
+#scss cache
+store/static/scss/.scss-cache/*
