@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired
 from store.user.models import User
 
 
+
 class LoginForm(Form):
     """Login form."""
 

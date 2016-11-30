@@ -5,27 +5,32 @@
 # """
 # from flask import url_for
 
+# from store.customer.models import Customer
+
+# from .factories import CustomerFactory
+
 
 # class TestCustomerLoggingIn:
 #     """Customer login test"""
 #     def test_can_log_in_returns_200(self, customer, testapp):
 #         """Login successful."""
 #         # Goes to homepage
-#         res = testapp.get('/')
+#         res = testapp.get('/customer/login/')
 #         # Fills out login form in navbar
 #         form = res.forms['loginForm']
-#         form['username'] = customer.id
+#         form['customername'] = customer.id
 #         form['password'] = 'myprecious'
 #         # Submits
 #         res = form.submit().follow()
+#         print(res)
 #         assert res.status_code == 200
 
 #     def test_sees_alert_on_log_out(self, customer, testapp):
 #         """Show alert on logout."""
-#         res = testapp.get('/')
+#         res = testapp.get('/customer/logout/')
 #         # Fills out login form in navbar
 #         form = res.forms['loginForm']
-#         form['username'] = customer.id
+#         form['customername'] = customer.id
 #         form['password'] = 'myprecious'
 #         # Submits
 #         res = form.submit().follow()
@@ -36,10 +41,10 @@
 #     def test_sees_error_message_if_password_is_incorrect(self, customer, testapp):
 #         """Show error if password is incorrect."""
 #         # Goes to homepage
-#         res = testapp.get('/')
+#         res = testapp.get('/customer/login/')
 #         # Fills out login form, password incorrect
 #         form = res.forms['loginForm']
-#         form['username'] = customer.id
+#         form['customername'] = customer.id
 #         form['password'] = 'wrong'
 #         # Submits
 #         res = form.submit()
@@ -49,10 +54,10 @@
 #     def test_sees_error_message_if_username_doesnt_exist(self, customer, testapp):
 #         """Show error if username doesn't exist."""
 #         # Goes to homepage
-#         res = testapp.get('/')
+#         res = testapp.get(url_for('customer.login'))
 #         # Fills out login form, password incorrect
 #         form = res.forms['loginForm']
-#         form['username'] = 'unknown'
+#         form['customername'] = 'unknown'
 #         form['password'] = 'myprecious'
 #         # Submits
 #         res = form.submit()
