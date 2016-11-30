@@ -3,7 +3,7 @@ import datetime as dt
 from store.compat import basestring
 from store.database import Column, Model, SurrogatePK, db, reference_col, relationship
 from store.book.models import Book
-
+from store.customer.models import Customer
 
 
 """
@@ -23,8 +23,11 @@ class Order(Model):
     __tablename__ = 'orders'
     
     order_id = Column(db.String(80), unique=True, nullable=False, primary_key=True)
-    # customer_id = Column(db.String(80), unique=True, ForeignKey='user.id', nullable=False)
-    customer_id = Column(db.String(80), unique=True, nullable=False)
+
+    customer_id = Column(db.String(80), db.ForeignKey('user.id'))
+    customer = db.relationship(Customer, backref="orders")
+
+    # customer_id = Column(db.String(80), unique=True, nullable=False)
     date = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     qty = Column(db.Integer, default=1)
     status = Column(db.Boolean(), default=True)
