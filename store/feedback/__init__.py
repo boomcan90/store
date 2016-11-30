@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-"""The customer module."""
+"""The feedback module."""
 from . import views
