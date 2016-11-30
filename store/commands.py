@@ -124,3 +124,14 @@ def urls(url, order):
 
     for row in rows:
         click.echo(str_template.format(*row[:column_length]))
+
+
+@click.command()
+def seed():
+    """Add seed data to the database."""
+    from store.extensions import db
+    from store.dummy_data import books
+    for book in books.sample_list:
+        print("Adding book: {}".format(book.isbn13))
+        db.session.add(book)
+    # db.session.commit()

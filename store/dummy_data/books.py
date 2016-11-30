@@ -1,5 +1,7 @@
 """10 book samples."""
 
+from store.book.models import Book
+
 b1 = Book('9780439708180', "Harry Potter and the Philosopher's Stone",
           "J. K. Rowling", "Scholastic", 1999, 10, 6.79, "paperback", "fantasy", "fantasy")
 
