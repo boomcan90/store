@@ -6,6 +6,7 @@ from store.extensions import login_manager
 # from store.public.forms import LoginForm
 # from store.user.forms import RegisterForm
 from store.user.models import User
+from store.customer.models import Customer
 # from store.utils import flash_errors
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
@@ -28,3 +29,14 @@ def home():
 #     """About page."""
 #     form = LoginForm(request.form)
 #     return render_template('public/about.html', form=form)
+
+
+@login_manager.user_loader
+def load_customer(customer_id):
+	"""Load customer by login name"""
+	return Customer.get_by_id(str(customer_id))
+
+@blueprint.route('/login', methods=['GET', 'POST'])
+def login():
+	"""Login page"""
+	return render_template('index.html')

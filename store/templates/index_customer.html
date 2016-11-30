@@ -1,0 +1,87 @@
+{%extends "base_template.html"%}
+	{% block content %}
+
+	<section id="banner" class="clearfix">
+		<div id="banner_content_wrapper">
+			<div id="poster">
+				<img src="static/images/books/godfather.jpg" alt="Godfather cover art" class="featured_image">
+			</div>
+			<div id="content">
+				<h2 class="title">The Godfather</h2>
+				<div class="ratings">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star inactive"></i>
+				</div>
+
+				<!-- <p class="info"> SOLD OUT </p> -->
+				<div class="buy">
+				<p class="info">$10.00</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
+				</div>
+
+				<p class="description">The Corleone family and the mob war fight with the other four mafia families in New York is the central issue. After Don Vito Corleone is shot by men working for drug dealer Virgil "The Turk" Sollozzo, Corleone's two sons, Santino and Michael, must run the family business with the help of consigliere Tom Hagen and the two caporegime Peter Clemenza and Salvatore Tessio.</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="top_books" class="clearfix">
+		<div class="wrapper">
+			<header class="clearfix">
+				<h2>Popular Books</h2>
+				<p class="view_more">&nbsp;</p>
+			</header>
+
+			<div class="row clearfix">
+				<div class="post">
+					<img src="static/images/books/HP1.jpg" alt="HP1">
+					<h3 class="title">HP1</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+
+				<div class="post">
+					<img src="static/images/books/HP2.jpg" alt="HP2">
+					<h3 class="title">HP2</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+
+				<div class="post">
+					<img src="static/images/books/HP3.jpg" alt="HP3">
+					<h3 class="title">HP3</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+
+				<div class="post">
+					<img src="static/images/books/HP4.jpg" alt="HP4">
+					<h3 class="title">HP4</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+
+				<div class="post">
+					<img src="static/images/books/HP5.jpg" alt="HP5">
+					<h3 class="title">HP5</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+
+				<div class="post">
+					<img src="static/images/books/HP6.jpg" alt="HP6">
+					<h3 class="title">HP6</h3>
+					<p class="post_info">$12.34</p>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section id="newsletter">
+		<div class="newsletter_inner">
+			<h2>Get the best selling books straight in your inbox each week.</h2>
+			<div class="sign_up_form">
+				<input type="text" placeholder="First Name">
+				<input type="email" placeholder="Email Address">
+				<button class="button">Subscribe</button>
+			</div>
+		</div>
+	</section>
+	{% endblock %}
