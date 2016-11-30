@@ -127,6 +127,7 @@ def urls(url, order):
 
 
 @click.command()
+@with_appcontext
 def seed():
     """Add seed data to the database."""
     from store.extensions import db
@@ -134,4 +135,4 @@ def seed():
     for book in books.sample_list:
         print("Adding book: {}".format(book.isbn13))
         db.session.add(book)
-    # db.session.commit()
+    db.session.commit()
