@@ -21,12 +21,13 @@ customer_blueprint = Blueprint(
 @customer_blueprint.route('/members')
 @login_required
 def members():
-    """Customer Index Route"""
+    """Customer Index Route."""
     return "customer"
 
 
 @customer_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    """Customer Login."""
     form = LoginFormCustomer(request.form)
     # Handle logging in
     if request.method == 'POST':
@@ -46,10 +47,9 @@ def register():
     """Register new user."""
     form = RegisterForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
-        print("sucess")
-
         Customer.create(id=form.customername.data, email=form.email.data, m_credit_no=form.m_credit_no.data,
-                        phone_no=form.phone_no.data, address=form.address.data, password=form.password.data, active=True)
+                        phone_no=form.phone_no.data, address=form.address.data,
+                        password=form.password.data, active=True)
         flash('Thank you for registering. You can now log in.', 'success')
         return redirect(url_for('public.home'))
     else:
