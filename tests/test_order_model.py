@@ -7,6 +7,8 @@ import pytest
 
 from store.orders.models import Order
 
+from store.customer.models import Customer
+
 from .factories import OrderFactory
 
 @pytest.mark.usefixtures('db')
@@ -34,3 +36,16 @@ class TestOrder:
 
         l = Order.query.all()
         assert len(l) == 5
+
+    def test_check_if_customer_is_customer_in_order(self):
+        # id, email, m_credit_no, phone_no, address, password=None
+        customer = Customer('foo', 'foo@bar.com', "3241234", "12341234", "coolstreet")
+        customer.save()
+
+        order = Order('order0', customer.id)
+        order.save()
+
+        retrieved = Order.get_by_id('order0')
+
+        assert customer.id == retrieved.customer_id
+        # assert customer.user_type == 'customer'
