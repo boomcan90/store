@@ -19,7 +19,7 @@ class TestBook:
         assert retrieved == book
 
     def test_retrieve_list_of_books(self):
-        
+
         book0 = Book("book0", "Lalala", "Alvin Tan","Penguin Books",
             2016 ,50 ,25 ,"Text-only","la","Fiction")
 
@@ -33,6 +33,5 @@ class TestBook:
 
         for book in book_list:
             book.save()
-
         i = Book.query.all()
         assert len(i) == 2

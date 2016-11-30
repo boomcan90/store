@@ -14,18 +14,20 @@ from store.utils import flash_errors
 from .models import User
 
 
-blueprint = Blueprint('user', __name__, url_prefix='/user', static_folder='../static')
+blueprint = Blueprint('user', __name__, url_prefix='/user',
+                      static_folder='../static')
 
 
-@blueprint.route('/')
+@blueprint.route('/members')
 @login_required
 def members():
     """List members."""
     return render_template('user/members.html')
 
 
-@blueprint.route('/login/', methods=['GET', 'POST'])
+@blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    """Login route."""
     form = LoginForm(request.form)
     # Handle logging in
     if request.method == 'POST':
@@ -39,12 +41,13 @@ def login():
     return render_template('user/login.html', form=form)
 
 
-@blueprint.route('/register/', methods=['GET', 'POST'])
+@blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     """Register new user."""
     form = RegisterForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
-        User.create(id=form.username.data, email=form.email.data, password=form.password.data, active=True)
+        User.create(id=form.username.data, email=form.email.data,
+                    password=form.password.data, active=True)
         flash('Thank you for registering. You can now log in.', 'success')
         return redirect(url_for('public.home'))
     else:
@@ -52,7 +55,7 @@ def register():
     return render_template('user/register.html', form=form)
 
 
-@blueprint.route('/logout/')
+@blueprint.route('/logout')
 @login_required
 def logout():
     """Logout."""

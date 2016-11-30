@@ -7,23 +7,21 @@ from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 from .models import Customer
 
+
 class RegisterForm(Form):
     """Register form."""
-    # first_name = StringField('First Name',
-    # 						validators=[DataRequired(), Length(min=3, max=25)])
-    # last_name = StringField('Last Name',
-    # 						validators=[DataRequired(), Length(min=3, max=25)])
+
     customername = StringField('Username',
-                           validators=[DataRequired(), Length(min=3, max=25)])
+                               validators=[DataRequired(), Length(min=3, max=25)])
     email = StringField('Email',
                         validators=[DataRequired(), Email(), Length(min=6, max=40)])
     m_credit_no = StringField('Credit Card no',
-    							validators=[DataRequired(), Length(max=16)])
+                              validators=[DataRequired(), Length(max=16)])
 
     phone_no = StringField('Phone no',
-    						validators=[DataRequired(), Length(max=8)])
+                           validators=[DataRequired(), Length(max=8)])
     address = StringField('Address',
-    						validators=[DataRequired(), Length(min=10, max=255)])
+                          validators=[DataRequired(), Length(min=10, max=255)])
     password = PasswordField('Password',
                              validators=[DataRequired(), Length(min=6, max=40)])
     confirm = PasswordField('Verify password',
@@ -49,6 +47,7 @@ class RegisterForm(Form):
             return False
         return True
 
+
 class LoginFormCustomer(Form):
     """Login form."""
 
@@ -66,7 +65,8 @@ class LoginFormCustomer(Form):
         if not initial_validation:
             return False
 
-        self.customer = Customer.query.filter_by(id=self.customername.data).first()
+        self.customer = Customer.query.filter_by(
+            id=self.customername.data).first()
         if not self.customer:
             self.customername.errors.append('Unknown username')
             return False
