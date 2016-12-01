@@ -13,8 +13,10 @@ from store.utils import flash_errors
 
 from .models import User
 
+from store.utils import manager_only
 
-blueprint = Blueprint('user', __name__, url_prefix='/user',
+
+blueprint = Blueprint('user', __name__, url_prefix='/users',
                       static_folder='../static')
 
 
@@ -23,6 +25,14 @@ blueprint = Blueprint('user', __name__, url_prefix='/user',
 def members():
     """List members."""
     return render_template('user/members.html')
+
+
+@blueprint.route('/denied')
+@login_required
+@manager_only
+def cannot_go_here():
+    """Should not be here."""
+    return "Should not see this."
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
