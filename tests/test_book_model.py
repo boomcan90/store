@@ -47,4 +47,3 @@ class TestBook:
 
         result = Book.query.filter_by(subject="romance").all()
         assert len(result) == 3
-
