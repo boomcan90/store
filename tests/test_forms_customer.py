@@ -8,8 +8,9 @@ class TestRegisterForm:
     """Register form."""
 
     def test_validate_user_already_registered(self, customer):
-        """Enter username that is already registered."""
-        form = RegisterForm(customername=customer.id, email='foo@bar.com', m_credit_no='1223445', phone_no= '123445', address='Somapah road 8',
+        """Enter username that is already registered. Uniqueness check."""
+        form = RegisterForm(customername=customer.id, email='foo@bar.com',
+                            m_credit_no='1223445', phone_no='123445', address='Somapah road 8',
                             password='example', confirm='example')
 
         assert form.validate() is False
@@ -19,7 +20,8 @@ class TestRegisterForm:
         """Enter email that is already registered."""
         # form = RegisterForm(username='unique', email=user.email,
         #                     password='example', confirm='example')
-        form = RegisterForm(customername='unique', email=customer.email, m_credit_no='1223445', phone_no= '123445', address='Somapah road 8',
+        form = RegisterForm(customername='unique', email=customer.email, m_credit_no='1223445',
+                            phone_no='123445', address='Somapah road 8',
                             password='example', confirm='example')
         assert form.validate() is False
         assert 'Email already registered' in form.email.errors
@@ -28,7 +30,8 @@ class TestRegisterForm:
         """Register with success."""
         form = RegisterForm(username='newusername', email='new@test.test',
                             password='example', confirm='example')
-        form = RegisterForm(customername='newusername', email='new@test.test', m_credit_no='1223445', phone_no= '123445', address='Somapah road 8',
+        form = RegisterForm(customername='newusername', email='new@test.test',
+                            m_credit_no='1223445', phone_no='123445', address='Somapah road 8',
                             password='example', confirm='example')
         assert form.validate() is True
 
@@ -55,7 +58,8 @@ class TestLoginForm:
         """Invalid password."""
         customer.set_password('example')
         customer.save()
-        form = LoginFormCustomer(customername=customer.id, password='wrongpassword')
+        form = LoginFormCustomer(
+            customername=customer.id, password='wrongpassword')
         assert form.validate() is False
         assert 'Invalid password' in form.password.errors
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# """Functional tests using WebTest.
+"""Functional tests using WebTest.
 
-# See: http://webtest.readthedocs.org/
-# """
+See: http://webtest.readthedocs.org/
+"""
 # from flask import url_for
 
 
@@ -12,7 +12,7 @@
 #     def test_can_log_in_returns_200(self, user, testapp):
 #         """Login successful."""
 #         # Goes to homepage
-#         res = testapp.get('/user/login')
+#         res = testapp.get(url_for('user.login'))
 #         # Fills out login form in navbar
 #         form = res.forms['loginForm']
 #         form['username'] = user.id

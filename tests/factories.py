@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 """Factories to help in tests."""
-import datetime
-import factory
+
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
-from store.book.models import Book
 from store.customer.models import Customer
 from store.database import db
 from store.user.models import User
 from store.book.models import Book
 from store.orders.models import Order
 from store.orders.models import Order_Consists_Of
-
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -40,13 +37,15 @@ class UserFactory(BaseFactory):
 
 
 class CustomerFactory(UserFactory):
-    """Customer Factory inherit from User Factory"""
+    """Customer Factory inherit from User Factory."""
+
     m_credit_no = '1234567811121314'
     phone_no = '12345678'
     address = Sequence(
         lambda n: '{0} Changi South Ave, Singapore, 485998'.format(n))
 
     class Meta:
+        """Meta."""
 
         model = Customer
 
@@ -62,21 +61,22 @@ class BookFactory(BaseFactory):
     year_of_pub = 2016
     num_of_copies = 50
     price = 25
-    format = "Text-only"
+    format = "paperback"
     keywords = "la"
-    subject = "Fiction"
+    subject = "fiction"
 
     class Meta:
         """Factory configuration."""
 
         model = Book
 
+
 class OrderFactory(BaseFactory):
-    """So you want to order a book, huh?"""
+    """So you want to order a book."""
 
     order_id = Sequence(lambda n: 'order{0}'.format(n))
     # what is customer id here? there is a reference....?
-    customer_id = Sequence(lambda n: 'customer{0}'.format(n)) 
+    customer_id = Sequence(lambda n: 'customer{0}'.format(n))
 
     class Meta:
         """Factory configuration."""
@@ -85,7 +85,7 @@ class OrderFactory(BaseFactory):
 
 
 class ConsistsOfFactory(BaseFactory):
-    """What books do YOU have in your order?"""
+    """What books do YOU have in your order? ."""
 
     # How do you get book isbn and order id of existing order?
     consists_order_id = Sequence(lambda n: 'order{0}'.format(n))

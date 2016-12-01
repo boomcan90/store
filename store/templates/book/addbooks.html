@@ -1,0 +1,59 @@
+{% extends "base_template.html"%}
+{% block content %}
+
+<h1>Add Book</h1>
+<br/>
+<form id="addBookForm" class="form form-register" method="POST" action="" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            {{form.isbn13(placeholder="ISBN13", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.title(placeholder="Title", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.author(placeholder="Author", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.publisher(placeholder="Publisher", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.year_of_pub(placeholder="Publish Year", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.num_of_copies(placeholder="Quantity", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.price(placeholder="Price", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.format(placeholder="Format", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.keywords(placeholder="Keywords", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.subject(placeholder="Subject", class_="form-control")}}
+        </div>
+        <p><input class="btn btn-default btn-submit" type="submit" value="Add"></p>
+</form>
+
+
+<div role="main">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="row">
+<div class="col-md-12">
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+   {{message}}
+  </div><!-- end .alert -->
+  {% endfor %}
+</div><!-- end col-md -->
+</div><!-- end row -->
+  {% endif %}
+{% endwith %}
+</div>
+
+{% endblock %}
