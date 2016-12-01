@@ -61,6 +61,4 @@ class TestBookModel:
         i = Book.query.filter_by(subject='romance').all()
         assert len(i) == 2
         # books = Book.query.filter_by(Book.isbn13.contains('9780439358071')).all()
-        
-        
-        
+

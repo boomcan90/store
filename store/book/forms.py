@@ -34,6 +34,3 @@ class AddBookForm(Form):
             self.isbn13.errors.append('Book ID already exists')
             return False
         return True
-
-# class DeleteBookForm(Form):
-
