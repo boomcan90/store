@@ -3,7 +3,7 @@
 from flask import Flask, render_template
 
 from store import commands, public, user, book, orders, customer
-from store.assets import assets
+# from store.assets import assets
 from store.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
 from store.settings import ProdConfig
 
@@ -67,10 +67,10 @@ def register_shellcontext(app):
             'db': db,
             'User': user.models.User,
             'Customer': customer.models.Customer,
-            'book': book.models.Book,
+            'Book': book.models.Book,
             'Order': orders.models.Order,
             'Order_Consists_Of': orders.models.Order_Consists_Of
-            }
+        }
 
     app.shell_context_processor(shell_context)
 
