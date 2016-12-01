@@ -31,6 +31,18 @@
             </div>
         </div>
     </header>
+
+    <!-- user info can add in navbar -->
+    <div>
+        {% if current_user.is_authenticated %}
+          This should be in the nav bar I think!?
+          Hi {{ current_user.name }} | {{current_user.id}}!
+          <p>You are a {{ current_user.user_type }} user!</p>
+          [[Logout button]]
+        {% else %}
+        [[Login button]]
+        {% endif %}
+    </div>
     {%endblock%}
 
     {%block content%}

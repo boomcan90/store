@@ -4,7 +4,7 @@
 	<section id="banner" class="clearfix">
 		<div id="banner_content_wrapper">
 			<div id="poster">
-				<img src="static/images/books/godfather.jpg" alt="Godfather cover art" class="featured_image">
+				<img src="{{url_for('static', filename='images/books/')}}godfather.jpg" alt="Godfather cover art" class="featured_image">
 			</div>
 			<div id="content">
 				<h2 class="title">The Godfather</h2>
@@ -34,44 +34,61 @@
 			</header>
 
 			<div class="row clearfix">
+
+				{% for book in books.items %}
 				<div class="post">
-					<img src="static/images/books/HP1.jpg" alt="HP1">
+					<img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" alt="HP1">
+					<h3 class="title">{{ book.title }}</h3>
+					<p class="post_info">{{ "${:.2f}".format(book.price) }}</p>
+				</div>
+				{% endfor %}
+
+<!-- 				<div class="post">
+					<img src="{{url_for('static', filename='images/books/')}}HP1.jpg" alt="HP1">
 					<h3 class="title">HP1</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 
 				<div class="post">
-					<img src="static/images/books/HP2.jpg" alt="HP2">
+					<img src="{{url_for('static', filename='images/books/')}}HP2.jpg" alt="HP2">
 					<h3 class="title">HP2</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 
 				<div class="post">
-					<img src="static/images/books/HP3.jpg" alt="HP3">
+					<img src="{{url_for('static', filename='images/books/')}}HP3.jpg" alt="HP3">
 					<h3 class="title">HP3</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 
 				<div class="post">
-					<img src="static/images/books/HP4.jpg" alt="HP4">
+					<img src="{{url_for('static', filename='images/books/')}}HP4.jpg" alt="HP4">
 					<h3 class="title">HP4</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 
 				<div class="post">
-					<img src="static/images/books/HP5.jpg" alt="HP5">
+					<img src="{{url_for('static', filename='images/books/')}}HP5.jpg" alt="HP5">
 					<h3 class="title">HP5</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 
 				<div class="post">
-					<img src="static/images/books/HP6.jpg" alt="HP6">
+					<img src="{{url_for('static', filename='images/books/')}}HP6.jpg" alt="HP6">
 					<h3 class="title">HP6</h3>
 					<p class="post_info">$12.34</p>
 				</div>
 			</div>
-
-		</div>
+		</div> -->
+	<!-- book nav -->
+		{% if books.has_prev %}
+		<a href="{{ url_for('public.home', page=books.prev_num) }}">&lt;&lt; Previous books</a>
+		{% else %}&lt;&lt;  Previous books
+		{% endif %} |
+		{% if books.has_next %}
+		<a href="{{ url_for('public.home', page=books.next_num) }}">More books &gt;&gt;</a>
+		{% else %}More books &gt;&gt;
+		{% endif %}
 	</section>
 
 	<section id="newsletter">
