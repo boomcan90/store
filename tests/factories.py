@@ -54,7 +54,7 @@ class CustomerFactory(UserFactory):
 class BookFactory(BaseFactory):
     """Book factory."""
 
-    isbn13 = Sequence(lambda n: 'book{0}'.format(n))
+    isbn13 = Sequence(lambda n: 'isbn13{0}'.format(n))
     # isbn13 = "book0"
     title = "Lalala"
     author = "Alvin Tan"
@@ -63,7 +63,7 @@ class BookFactory(BaseFactory):
     num_of_copies = 50
     price = 25
     format = "Text-only"
-    keyword = "la"
+    keywords = "la"
     subject = "Fiction"
 
     class Meta:

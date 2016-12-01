@@ -60,6 +60,14 @@ def customer(db):
     return customer
 
 @pytest.fixture
+def book(db):
+    """book for testing"""
+    book = BookFactory(isbn13=1)
+    db.session.commit()
+    return book
+
+
+@pytest.fixture
 def order(db):
     """ Some orders for the tests."""
     order = OrderFactory()

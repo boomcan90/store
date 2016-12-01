@@ -1,0 +1,23 @@
+<html>
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock %}</title> 
+        {% endblock %}
+    </head>
+<body>
+{% block body %}
+    {% if book %}
+        <div>
+            {{ book['isbn13'] }}
+            {{ book['title'] }}
+            {{ book['author'] }}
+            {{ book['publisher'] }}
+            {{ book['year_of_pub'] }}
+            {{ book['num_of_copies'] }}
+            ${{ book['price'] }}
+        </div>
+    {% endif %}
+
+{% endblock %}
+</body>
+</html>
