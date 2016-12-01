@@ -7,10 +7,7 @@ TESTS MUST START WITH "test"
 """
 import pytest
 
-from flask import url_for
-from store.book.models import Book
 from store.dummy_data import books as testdata
-from store.book.forms import AddBookForm
 
 
 @pytest.mark.usefixtures('db')
@@ -59,10 +56,9 @@ class TestBook:
 class TestAddBook:
     """Test adding book."""
 
-    def test_can_add_book(self, testapp):
-        """Can add a book."""
+    def test_cannot_add_book_if_empty_fields(self, testapp):
+        """Cannot add a book if fields are empty."""
         res = testapp.get('/book/add')
         form = res.forms['addBookForm']
-
         res = form.submit()
-        assert "Invalid" in res
+        assert "required" in res
