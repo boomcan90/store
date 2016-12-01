@@ -1,0 +1,14 @@
+<h1>Book details</h1>
+{% if book %}
+    <div>
+        {{ book['isbn13'] }}
+        {{ book['title'] }}
+        {{ book['author'] }}
+        {{ book['publisher'] }}
+        {{ book['year_of_pub'] }}
+        {{ book['num_of_copies'] }}
+        ${{ book['price'] }}
+    </div>
+{% else %}
+    <p>No book found.</p>
+{% endif %}

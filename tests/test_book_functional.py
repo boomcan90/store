@@ -16,14 +16,12 @@ class TestBook:
 
     def test_book_is_not_not_found(self, testapp):
         """Book page 404."""
-        # !!! URL needs the / at the end.
-        res = testapp.get('/book/')
+        res = testapp.get('/book/book')
         assert res.status_code != 404
 
     def test_book_is_accessible(self, testapp):
         """Book page 200."""
-        # testapp made available from the tests module
-        res = testapp.get('/book/')
+        res = testapp.get('/book/book')
         assert res.status_code == 200
 
     def test_book_has_book(self, testapp):
@@ -43,7 +41,7 @@ class TestBook:
         for book in testdata.sample_list:
             book.save()
 
-        res = testapp.get('/book/books')
+        res = testapp.get('/book/browse')
 
         assert "9780439064873" in res
 

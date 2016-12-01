@@ -1,0 +1,16 @@
+<h1>Browse books</h1>
+{% if books %}
+    {% for book in books %}
+        <div>
+            {{ book['isbn13'] }}
+            {{ book['title'] }}
+            {{ book['author'] }}
+            {{ book['publisher'] }}
+            {{ book['year_of_pub'] }}
+            {{ book['num_of_copies'] }}
+            ${{ book['price'] }}
+
+            <a href="{{ url_for('book.details', isbn13=book.isbn13) }}">View product</a>
+        </div>
+    {% endfor %}
+{% endif %}

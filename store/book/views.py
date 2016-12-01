@@ -48,3 +48,31 @@ def add_book():
         else:
             flash_errors(form)
     return render_template('book/addbooks.html', form=form)
+
+
+@book_blueprint.route('/browse', methods=['GET'])
+def browse():
+    """Browse books."""
+    book = Book.query.all()
+
+    return render_template('book/browse.html', books=book)
+
+
+@book_blueprint.route('/details/<isbn13>', methods=['GET'])
+def details(isbn13=None):
+    """Book detail."""
+    book = Book.query.filter_by(isbn13=isbn13)
+    print(book)
+    book = book.first()
+    return render_template('book/details.html', book=book)
+
+
+@book_blueprint.route('/search', methods=['GET', 'POST'])
+def search():
+    """Page for performing conjunctive queries on books."""
+    # TODO: some search form for doing conjunctive queries.
+    # t = Book.query.filter(or_(and_(Book.format=="paperback", Book.price < 8), Book.subject=="romance"))
+    # SELECT book.isbn13 AS book_isbn13, book.title AS book_title, book.author AS book_author, book.publisher AS book_publisher, book.year_of_pub AS book_year_of_pub, book.num_of_copies AS book_num_of_copies, book.price AS book_price, book.format AS book_format, book.keywords AS book_keywords, book.subject AS book_subject
+    # FROM book
+    # WHERE book.format = ? AND book.price < ? OR book.subject = ?
+    return render_template('book/search.html')
