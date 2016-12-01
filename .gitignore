@@ -60,4 +60,5 @@ templates/config.codekit3
 #scss cache
 store/static/scss/.scss-cache/*
 
+
 __pycache__

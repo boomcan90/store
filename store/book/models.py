@@ -3,6 +3,7 @@
 
 from store.database import Column, Model, SurrogatePK, db
 from store.compat import basestring
+
 class Book(Model):
     """book"""
 
@@ -28,7 +29,7 @@ class Book(Model):
 
     def __repr__(self):
         """Represent instance as a unique string."""
-        return '<Book({isbn13})>'.format(isbn13=self.isbn13)
+        return '<isbn13({isbn13})>'.format(isbn13=self.isbn13)
 
     def to_json(self):
         return dict(isbn13=self.isbn13, title=self.title,
@@ -45,3 +46,35 @@ class Book(Model):
         ):
             return cls.query.get(str(isbn13))
         return None
+
+    def set_title(self, title):
+        self.title = title
+
+    def set_author(self, author):
+        self.author = author
+
+    def set_publisher(self, publisher):
+        self.publisher = publisher
+
+    def set_year_of_pub(self, year):
+        self.year_of_pub = year
+
+    def set_num_of_copies(self, qty):
+        self.num_of_copies = qty
+
+    def set_price(self, price):
+        self.price = price
+
+    def set_format(self, format):
+        self.format = format
+
+    def set_keywords(self, keywords):
+        self.keywords = keywords
+
+    def set_subject(self, subject):
+        self.subject = subject
+
+    @property
+    def book_title(self):
+        """Book title"""
+        return '{0} {1}'.format(self.title)
