@@ -3,11 +3,9 @@
 from flask import Blueprint, render_template
 
 from store.extensions import login_manager
-# from store.public.forms import LoginForm
-# from store.user.forms import RegisterForm
 from store.user.models import User
 from store.customer.models import Customer
-# from store.utils import flash_errors
+from store.book.models import Book
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
 
@@ -18,25 +16,17 @@ def load_user(user_id):
     return User.get_by_id(str(user_id))
 
 
-@blueprint.route('/', methods=['GET', 'POST'])
-def home():
-    """Home page."""
-    return render_template('index.html')
-
-
-# @blueprint.route('/about/')
-# def about():
-#     """About page."""
-#     form = LoginForm(request.form)
-#     return render_template('public/about.html', form=form)
-
-
 @login_manager.user_loader
 def load_customer(customer_id):
-	"""Load customer by login name"""
-	return Customer.get_by_id(str(customer_id))
+    """Load customer by login name."""
+    return Customer.get_by_id(str(customer_id))
 
-@blueprint.route('/login', methods=['GET', 'POST'])
-def login():
-	"""Login page"""
-	return render_template('index.html')
+
+@blueprint.route('/index', methods=['GET', 'POST'])
+@blueprint.route('/index/<int:page>', methods=['GET', 'POST'])
+@blueprint.route('/', methods=['GET', 'POST'])
+def home(page=1):
+    """Home page."""
+    # Should be top grossing books.
+    books = Book.query.paginate(page, 6, False)
+    return render_template('index.html', best=books, books=books)
