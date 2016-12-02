@@ -134,11 +134,17 @@ def seed():
     from store.extensions import db
     from store.dummy_data import books
     from store.dummy_data import customers
+    from store.dummy_data import orders
     for book in books.sample_list:
         print("Adding book: {}".format(book.isbn13))
         db.session.add(book)
 
     for customer in customers.sample_list:
         print("Adding customer: {}".format(customer.id))
-        db.session.add(customer)        
+        db.session.add(customer)
+
+    for order in orders.sample_list:
+        print("Adding order: {}".format(order.order_id))
+        db.session.add(order)
+                
     db.session.commit()
