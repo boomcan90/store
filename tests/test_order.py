@@ -5,26 +5,22 @@ TESTS MUST START WITH "test"
 """
 from flask import url_for
 
+
 class TestBreakTheOrder:
     """
     Breaking the order
     """
-    def test_order_is_not_not_found(self, testapp):
+
+    def test_order_gives_401_without_login(self, testapp):
         """
-        There actually is an order... Amazing. 
+        There actually is an order... Amazing.
         I know, right?
         """
         # !!! URL needs the / at the end.
-        res = testapp.get('/orders/')
-        assert res.status_code != 404
-
-    def test_order_is_accessible(self, testapp):
-        """
-        Breaching the order?! Success!
-        """
-        # testapp made available from the tests module
-        res = testapp.get('/orders/')
-        assert res.status_code == 200
+        res = testapp.get('/orders/', expect_errors=True)
+        print(res)
+        print(res.status_code)
+        assert res.status_code == 401
 
     def test_order_has_list_of_not_beer(self, testapp):
         """
