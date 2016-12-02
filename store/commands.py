@@ -135,6 +135,8 @@ def seed():
     from store.dummy_data import books
     from store.dummy_data import customers
     from store.dummy_data import orders
+    from store.dummy_data import order_consists_of
+
     for book in books.sample_list:
         print("Adding book: {}".format(book.isbn13))
         db.session.add(book)
@@ -146,5 +148,9 @@ def seed():
     for order in orders.sample_list:
         print("Adding order: {}".format(order.order_id))
         db.session.add(order)
-                
+
+    for oco in order_consists_of.sample_list:
+        print("Adding order/book relation: {}".format(oco.consists_order_id))
+        db.session.add(oco)
+
     db.session.commit()
