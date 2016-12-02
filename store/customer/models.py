@@ -28,3 +28,4 @@ class Customer(User):
     def __repr__(self):
         """Represent instance as an unique string."""
         return '<Customer({id!r})>'.format(id=self.id)
+

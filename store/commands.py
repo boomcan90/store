@@ -133,7 +133,12 @@ def seed():
     """Add seed data to the database."""
     from store.extensions import db
     from store.dummy_data import books
+    from store.dummy_data import customers
     for book in books.sample_list:
         print("Adding book: {}".format(book.isbn13))
         db.session.add(book)
+
+    for customer in customers.sample_list:
+        print("Adding customer: {}".format(customer.id))
+        db.session.add(customer)        
     db.session.commit()
