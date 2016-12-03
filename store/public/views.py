@@ -4,7 +4,6 @@ from flask import Blueprint, render_template
 
 from store.extensions import login_manager
 from store.user.models import User
-from store.customer.models import Customer
 from store.book.models import Book
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
@@ -12,14 +11,8 @@ blueprint = Blueprint('public', __name__, static_folder='../static')
 
 @login_manager.user_loader
 def load_user(user_id):
-    """Load user by ID."""
+    """Load user by ID. Works with inherited classes."""
     return User.get_by_id(str(user_id))
-
-
-@login_manager.user_loader
-def load_customer(customer_id):
-    """Load customer by login name."""
-    return Customer.get_by_id(str(customer_id))
 
 
 @blueprint.route('/index', methods=['GET', 'POST'])

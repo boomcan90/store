@@ -1,7 +1,7 @@
 """User models."""
 import datetime as dt
 from store.compat import basestring
-from store.database import Column, Model, SurrogatePK, db, reference_col, relationship
+from store.database import Column, Model, db
 from store.book.models import Book
 from store.customer.models import Customer
 
@@ -19,9 +19,13 @@ CREATE TABLE Order_places_order (
 """
 # qty is total number of books in 1 order by 1 customer
 # Shopping cart part
+
+
 class Order(Model):
+    """Order model."""
+
     __tablename__ = 'orders'
-    
+
     order_id = Column(db.String(80), unique=True, nullable=False, primary_key=True)
 
     customer_id = Column(db.String(80), db.ForeignKey('user.id'))
@@ -35,11 +39,10 @@ class Order(Model):
     def __init__(self, order_id, customer_id, **kwargs):
         """Create instance."""
         db.Model.__init__(self, order_id=order_id, customer_id=customer_id, **kwargs)
-    
 
     @property
     def details(self):
-        """order and customer details."""
+        """Order and customer details."""
         return '{0} {1}'.format(self.order_id, self.customer_id)
 
     @classmethod
@@ -52,16 +55,12 @@ class Order(Model):
             return cls.query.get(str(order_id))
         return None
 
-
     def __repr__(self):
         """Represent instance as a unique string."""
         return '<Order({order_id!r})>'.format(order_id=self.order_id)
 
-    def toJson(self):
-        """
-        More json
-        Yeah.
-        """
+    def to_json(self):
+        """More json."""
         return dict(id=self.order_id, customer=self.customer_id, status=self.status)
 
 # -------------------------------------------------------------------------------------
@@ -78,12 +77,14 @@ CREATE TABLE Consists_of (
 );
 """
 # qty is number of copies of 1 book for that order id
-# order_qty = sum(order_consists_of_qty for every isbn13 in 1 order_id)
-class Order_Consists_Of(Model):
-    """books one order consists of."""
+# order_qty = sum(OrderConsistsOf_qty for every isbn13 in 1 order_id)
+
+
+class OrderConsistsOf(Model):
+    """Books one order consists of."""
 
     __tablename__ = 'consists_of'
-    
+
     # use ForeignKey here
     consists_order_id = Column(db.String(80), db.ForeignKey('orders.order_id'), primary_key=True)
     consists_isbn13 = Column(db.String(80), db.ForeignKey('book.isbn13'), primary_key=True)
@@ -93,14 +94,14 @@ class Order_Consists_Of(Model):
     book = db.relationship(Book, backref="consists_of")
     order = db.relationship(Order, backref="consists_of")
 
-
     def __init__(self, consists_order_id, consists_isbn13, consists_qty, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, consists_order_id=consists_order_id, consists_isbn13=consists_isbn13, consists_qty=consists_qty, **kwargs)
+        db.Model.__init__(self, consists_order_id=consists_order_id,
+                          consists_isbn13=consists_isbn13, consists_qty=consists_qty, **kwargs)
 
     def __repr__(self):
         """Represent instance as a unique string."""
-        return '<Order_Consists_Of({order_id})>'.format(order_id=self.consists_order_id)
+        return '<OrderConsistsOf({order_id})>'.format(order_id=self.consists_order_id)
 
     @classmethod
     def get_by_id(cls, tuplething):
@@ -112,11 +113,6 @@ class Order_Consists_Of(Model):
             return cls.query.get(tuplething)
         return None
 
-    def toJson(self):
-        """
-        Json because Master Lee said so. 
-        Also, because it makes sense and it can be used for views. 
-        Yeah.
-        """
+    def to_json(self):
+        """JSON."""
         return dict(id=self.consists_order_id, isbn13=self.consists_isbn13, quantity=self.consists_qty)
-

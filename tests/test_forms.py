@@ -3,8 +3,7 @@
 import pytest
 from store.book.models import Book
 
-from store.public.forms import LoginForm
-from store.user.forms import RegisterForm
+from store.user.forms import LoginForm, RegisterForm
 from store.book.forms import AddBookForm
 
 
@@ -70,10 +69,12 @@ class TestLoginForm:
         assert form.validate() is False
         assert 'User not activated' in form.username.errors
 
+
 @pytest.mark.usefixtures('db')
 class TestBookForm:
-    """Book Form"""
-    #test creating book
+    """Book Form."""
+
+    # test creating book
     # def test_creating_book_that_already_exists(self, book):
     #     """Enter Book that is already in database."""
     #     form = AddBookForm(isbn13 = "isbn1", title=book.title, author = "example", publisher = "example",
@@ -82,27 +83,17 @@ class TestBookForm:
 
     #     assert form.validate() is False
     #     assert "Book title already exists" in form.title.errors
-    
-    def test_validate_ISBN13_already_registered(self, book):
-        """Enter ISBN13 that     # recipe = session.query(Recipe, Ingredient).filter(Recipe.id==Ingredient.recipe_id).filter(Ingredient.name.contains(query)).all()
-is already registered."""
-        
-        #creating a entry to database
-        book1 = Book('book1', "Lalala", "Alvin Tan","Penguin Books",
-            2016 ,50 ,25 ,"Text-only","la","Fiction")
+
+    def test_validate_isbn13_already_registered(self, book):
+        """Enter ISBN13 that is already registered."""
+        # creating a entry to database
+        book1 = Book('book1', "Lalala", "Alvin Tan", "Penguin Books",
+                     2016, 50, 25, "Text-only", "la", "Fiction")
         book1.save()
 
-        #user entry
-        form = AddBookForm(isbn13 = book1.isbn13, title="Lololo", author = "example", publisher = "example",
-            year_of_pub = "1991", num_of_copies = 50, price = 25, format ="Text-only",
-            keyword = "lo", subject = "Fiction")
+        # user entry
+        form = AddBookForm(isbn13=book1.isbn13, title="Lololo", author="example", publisher="example",
+                           year_of_pub="1991", num_of_copies=50, price=25, format="Text-only",
+                           keyword="lo", subject="Fiction")
 
         assert form.validate() is False
-        #check if statement is true, if false throw error
-        # assert len(form.isbn13.errors) > 0
-
-
-
-    #test read book << done in test_book_model.py
-    #test update book
-    #test delete book

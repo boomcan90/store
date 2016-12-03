@@ -9,7 +9,7 @@ from store.database import db
 from store.user.models import User
 from store.book.models import Book
 from store.orders.models import Order
-from store.orders.models import Order_Consists_Of
+from store.orders.models import OrderConsistsOf
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -95,4 +95,4 @@ class ConsistsOfFactory(BaseFactory):
     class Meta:
         """Factory configuration."""
 
-        model = Order_Consists_Of
+        model = OrderConsistsOf

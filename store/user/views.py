@@ -5,9 +5,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from flask_login import login_required, login_user, logout_user
 
-from store.public.forms import LoginForm
-
-from store.user.forms import RegisterForm
+from .forms import LoginForm, RegisterForm
 
 from store.utils import flash_errors
 
@@ -16,7 +14,7 @@ from .models import User
 from store.utils import manager_only
 
 
-blueprint = Blueprint('user', __name__, url_prefix='/users',
+blueprint = Blueprint('user', __name__, url_prefix='/user',
                       static_folder='../static')
 
 

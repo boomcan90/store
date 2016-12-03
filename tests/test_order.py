@@ -18,8 +18,6 @@ class TestBreakTheOrder:
         """
         # !!! URL needs the / at the end.
         res = testapp.get('/orders/', expect_errors=True)
-        print(res)
-        print(res.status_code)
         assert res.status_code == 401
 
     def test_order_has_list_of_not_beer(self, testapp):

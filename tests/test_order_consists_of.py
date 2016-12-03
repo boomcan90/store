@@ -16,12 +16,12 @@
 #         res = testapp.get('/consistsof/')
 #         assert res.status_code != 404
 
-#     def test_order_consists_of_is_accessible(self, testapp):
+#     def test_OrderConsistsOf_is_accessible(self, testapp):
 #         # testapp made available from the tests module
 #         res = testapp.get('/consistsof/')
 #         assert res.status_code == 200
 
-#     def test_order_consists_of_has_list_of_not_stuff(self, testapp):
+#     def test_OrderConsistsOf_has_list_of_not_stuff(self, testapp):
 #         res = testapp.get('/consistsof/consistsof')
 
 #         # i have discovered that "string" in res is case sensitive
