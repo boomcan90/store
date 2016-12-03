@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Book views."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, abort
 from store.book.models import Book
 from store.book.forms import AddBookForm
 
@@ -63,6 +63,8 @@ def details(isbn13=None):
     """Book detail."""
     book = Book.query.filter_by(isbn13=isbn13)
     book = book.first()
+    if not book:
+        abort(404)
     return render_template('book/book.html', book=book)
 
 
