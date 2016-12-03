@@ -4,6 +4,8 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for,
 from store.book.models import Book
 from store.book.forms import AddBookForm
 
+from store.feedback.models import Feedback
+
 from store.utils import flash_errors
 
 
@@ -33,6 +35,7 @@ def book_list():
     return render_template('book/booklist.html', books=book)
 
 
+# Route should require login and manager
 @book_blueprint.route('/add', methods=['GET', 'POST'])
 def add_book():
     """Add book."""
@@ -63,9 +66,13 @@ def details(isbn13=None):
     """Book detail."""
     book = Book.query.filter_by(isbn13=isbn13)
     book = book.first()
+
     if not book:
         abort(404)
-    return render_template('book/book.html', book=book)
+
+    reviews = Feedback.query.filter_by(book_id=isbn13).all()
+
+    return render_template('book/book.html', book=book, reviews=reviews)
 
 
 @book_blueprint.route('/search', methods=['GET', 'POST'])

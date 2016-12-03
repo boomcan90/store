@@ -1,10 +1,45 @@
 # -*- coding: utf-8 -*-
 """Book forms."""
 from flask_wtf import Form
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length
 
 from store.book.models import Book
+
+
+class SearchBookForm(Form):
+    """Search book form."""
+
+    author = StringField('author', validators=[Length(min=3)])
+    option1 = RadioField(
+        'andor1',
+        validators=[DataRequired()],
+        choices=[('and', 'AND'), ('or', 'OR')], default='and'
+    )
+    publisher = StringField('publisher', validators=[Length(min=3)])
+    option2 = RadioField(
+        'andor2',
+        validators=[DataRequired()],
+        choices=[('and', 'AND'), ('or', 'OR')], default='and'
+    )
+    title = StringField('title', validators=[Length(min=3)])
+    option3 = RadioField(
+        'andor3',
+        validators=[DataRequired()],
+        choices=[('and', 'AND'), ('or', 'OR')], default='and'
+    )
+    subject = StringField('subject', validators=[Length(min=3)])
+
+    def __init__(self, *args, **kwargs):
+        """Init."""
+        super(SearchBookForm, self).__init__(*args, **kwargs)
+
+    def validate(self):
+        """Validate search form."""
+        initial_validation = super(SearchBookForm, self).validate()
+        if not initial_validation:
+            return False
+        return True
 
 
 class AddBookForm(Form):

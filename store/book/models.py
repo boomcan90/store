@@ -20,7 +20,7 @@ class Book(Model):
     keywords = Column(db.String(128), nullable=False)
     subject = Column(db.String(128), nullable=False)
 
-    users = db.relationship("Feedback", back_populates="book")
+    reviewers = db.relationship("Feedback", back_populates="book")
 
     def __init__(self, isbn13, title, author, publisher, year_of_pub,
                  num_of_copies, price, format, keywords, subject):

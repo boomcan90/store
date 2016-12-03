@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Test book forms."""
 
-from store.book.forms import AddBookForm
+from store.book.forms import AddBookForm, SearchBookForm
 
 
 class TestAddBookForm:
@@ -20,5 +20,36 @@ class TestAddBookForm:
         form = AddBookForm(isbn13='123', title="Harry Potter And The Prisoner Of Azkaban",
                            author="J. K. Rowling", publisher="Scholastic", year_of_pub=1999, num_of_copies=11,
                            price=15.24, format="hardcover", keywords="fantasy", subject="fantasy")
+
+        assert form.validate() is False
+
+
+class TestSearchForm:
+    """Search book form."""
+
+    def test_search_form_valid(self, book):
+        """Search Form should be valid."""
+        form = SearchBookForm(author="J. K. Rowling",
+                              option1="and",
+                              publisher="Scholastic",
+                              option2="and",
+                              title="Harry Potter",
+                              option3="and",
+                              subject="fantasy")
+
+        assert form.validate() is True
+
+    def test_search_form_invalid(self, book):
+        """Search Form should be invalid.
+
+        Author length is <4.
+        """
+        form = SearchBookForm(author="J",
+                              option1="and",
+                              publisher="Scholastic",
+                              option2="and",
+                              title="Harry Potter",
+                              option3="and",
+                              subject="fantasy")
 
         assert form.validate() is False

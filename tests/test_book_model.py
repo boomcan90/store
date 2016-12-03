@@ -11,7 +11,7 @@ class TestBook:
     def test_get_by_isbn13(self):
         """Test can retrieve by isbn."""
         book = Book("book0", "Lalala", "Alvin Tan", "Penguin Books",
-                    2016, 50, 25, "Text-only", "la", "Fiction")
+                    2016, 50, 25, "hardcover", "la", "Fiction")
         book.save()
 
         # this method is inherited from a class in database.py
@@ -20,11 +20,11 @@ class TestBook:
 
     def test_retrieve_list_of_books(self):
         """Test able to retrieve a list of books."""
-        book0 = Book("book0", "Lalala", "Alvin Tan", "Penguin Books",
+        book0 = Book("book1", "Lalala", "Alvin Tan", "Penguin Books",
                      2016, 50, 25, "Text-only", "la", "Fiction")
 
-        book1 = Book("book1", "Lololo", "Kelvin Tan", "Aweseom Books",
-                     2009, 500, 50, "Text-Picture", "lo", "Non-Fiction")
+        book1 = Book("book2", "Lololo", "Kelvin Tan", "Aweseom Books",
+                     2009, 500, 50, "paperback", "lo", "Non-Fiction")
 
         book_list = [book0, book1]
 

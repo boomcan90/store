@@ -27,7 +27,6 @@ class Order(Model):
     __tablename__ = 'orders'
 
     order_id = Column(db.String(80), unique=True, nullable=False, primary_key=True)
-
     customer_id = Column(db.String(80), db.ForeignKey('user.id'))
     customer = db.relationship(Customer, backref="orders")
 
@@ -95,7 +94,7 @@ class OrderConsistsOf(Model):
 
     # use ForeignKey here
     consists_order_id = Column(db.String(80), db.ForeignKey('orders.order_id'), primary_key=True)
-    consists_isbn13 = Column(db.String(80), db.ForeignKey('book.isbn13'), primary_key=True)
+    consists_isbn13 = Column(db.String(13), db.ForeignKey('book.isbn13'), primary_key=True)
     # Non foreign key
     consists_qty = Column(db.Integer, default=1)
 

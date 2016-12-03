@@ -10,7 +10,7 @@ class Customer(User):
     __tablename__ = 'customer'
     __mapper_args__ = {'polymorphic_identity': 'customer'}
 
-    id = Column(db.String, db.ForeignKey("user.id"), primary_key=True)
+    id = Column(db.String(80), db.ForeignKey("user.id"), primary_key=True)
     m_credit_no = Column(db.String(64), nullable=True)
     phone_no = Column(db.String(15), nullable=True)
     address = Column(db.String(255), nullable=True)

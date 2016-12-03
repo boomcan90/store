@@ -25,17 +25,30 @@
             </div>
     </div>
 </section>
-        <div>
-            {{ book['isbn13'] }}
-            {{ book['title'] }}
-            {{ book['author'] }}
-            {{ book['publisher'] }}
-            {{ book['year_of_pub'] }}
-            {{ book['num_of_copies'] }}
-            ${{ book['price'] }}
-        </div>
+
+<div>
+    <h1>Reviews</h1>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <p>{{ review.user_id }} {{ review.short_text }} {{ review.score }}</p>
+            <p><a href="">useless +0</a> <a href="">useful +1</a> <a href="">very useful +2</a>  <span>rating: (total)</span></p>
+        {% endfor %}
+    {% endif %}
+    {% endblock %}
+
+</div>
+
+<div>
+    {{ book['isbn13'] }}
+    {{ book['title'] }}
+    {{ book['author'] }}
+    {{ book['publisher'] }}
+    {{ book['year_of_pub'] }}
+    {{ book['num_of_copies'] }}
+    ${{ book['price'] }}
+</div>
 
 
-{% endblock %}
 </body>
 </html>
