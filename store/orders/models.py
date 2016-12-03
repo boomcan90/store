@@ -55,6 +55,14 @@ class Order(Model):
             return cls.query.get(str(order_id))
         return None
 
+    # def get_customer_history(cls, customer_id):
+    #     if any(
+    #             (isinstance(customer_id, basestring),
+    #              isinstance(customer_id, str)),
+    #     ):
+    #         return cls.query.get(str(customer_id))
+    #     return None
+
     def __repr__(self):
         """Represent instance as a unique string."""
         return '<Order({order_id!r})>'.format(order_id=self.order_id)
