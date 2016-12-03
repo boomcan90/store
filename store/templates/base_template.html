@@ -25,11 +25,11 @@
                 <nav id="main_nav">
                     {% if current_user.is_authenticated %}
                     <p>Hi, {{ current_user.name }} {{current_user.id}}! </p><p>|</p>
-                    <a href="#">Logout</a>
+                    <a href="{{ url_for('customer.logout') }}">Logout</a>
                     {% else %}
-                    <a href="http://localhost:5000/customer/login">Login</a>
+                    <a href="{{ url_for('customer.login') }}">Login</a>
                     {% endif %}
-                    <a href="#">New</a>
+                    <a href="{{ url_for('public.home') }}">New</a>
                     <a href="#">Top Grossing</a>
                     <a href="#">Search</a>
                     <a href="#" class='snipcart-checkout'>Cart (<span class="snipcart-total-price"></span>)</a>

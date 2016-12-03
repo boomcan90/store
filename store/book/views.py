@@ -62,9 +62,8 @@ def browse():
 def details(isbn13=None):
     """Book detail."""
     book = Book.query.filter_by(isbn13=isbn13)
-    print(book)
     book = book.first()
-    return render_template('book/details.html', book=book)
+    return render_template('book/book.html', book=book)
 
 
 @book_blueprint.route('/search', methods=['GET', 'POST'])
