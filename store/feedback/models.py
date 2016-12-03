@@ -1,37 +1,43 @@
 """Feedback models."""
 
-
 from store.database import db
-
-from store.book.models import Book
-
-from store.customer.models import Customer
 
 
 class Feedback(db.Model):
     """Feedback relationship table."""
 
-    __tablename__ = 'customer_feedback_book'
-
-    id = db.Column('id', db.Integer, primary_key=True),
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id')),
-    isbn = db.Column(db.Integer, db.ForeignKey('book.isbn')),
-    score = db.Column(db.String, nullable=False),
+    __tablename__ = 'feedback'
+    user_id = db.Column(db.String, db.ForeignKey("user.id"), primary_key=True)
+    book_id = db.Column(db.String, db.ForeignKey(
+        "book.isbn13"), primary_key=True)
+    score = db.Column(db.Integer, nullable=False)
     short_text = db.Column(db.String, nullable=True, default="")
 
-    customer = db.relationship(Customer, backref="feedback")
-    book = db.relationship(Book, backref="feedback")
+    user = db.relationship("User", back_populates="reviews")  # child
+    book = db.relationship("Book", back_populates="users")  # parent
+
+    def __init__(self, user_id, isbn, score, **kwargs):
+        """Create instance."""
+        db.Model.__init__(self, user_id=user_id,
+                          book_id=isbn, score=score, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as an unique string."""
+        return '<Feedback({!r}{!r})>score={},text={}'.format(self.user_id, self.book_id, self.score, self.short_text)
 
 
-class Rates(db.Model):
-    """Rate relationship table."""
+# class Rates(db.Model):
+#     """Rate relationship table."""
 
-    __tablename__ = 'customer_rates_feedback'
+#     __tablename__ = 'rates'
 
-    feedback_id = db.Column(db.Integer, db.ForeignKey('feedback.id'), primary_key=True),
-    rater_id = db.Column(db.Integer, db.ForeignKey('customer.id'), primary_key=True),
-    rated_id = db.Column(db.Integer, db.ForeignKey('customer.id')),
-    rating = db.Column(db.Integer, nullable=False),
+#     feedback_id = db.Column(db.Integer, db.ForeignKey(
+#         'feedback.id'), primary_key=True),
+#     rater_id = db.Column(db.Integer, db.ForeignKey(
+#         'user.id'), primary_key=True),
+#     rated_id = db.Column(db.Integer, db.ForeignKey('user.id')),
+#     rating = db.Column(db.Integer, nullable=False),
 
-    rater_id = db.relationship(Customer, backref="rates")
-    rated_id = db.relationship(Customer, backref="rates")
+#     raters = db.relationship("User", backref="rates",
+#                                cascade="all, delete-orphan")
+#     rated_ = db.relationship("User", backref="rates")

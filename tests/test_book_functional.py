@@ -45,11 +45,6 @@ class TestBook:
 
         assert "9780439064873" in res
 
-        # When program encounters an assert statement, Python evaluates
-        # the accompanying expression, which is hopefully true.
-        # If the expression is false, Python raises an AssertionError
-        # exception.
-
 
 class TestAddBook:
     """Test adding book."""

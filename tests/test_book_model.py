@@ -28,8 +28,6 @@ class TestBook:
 
         book_list = [book0, book1]
 
-        # book_list.extend(BookFactory.create_batch(5))
-
         for book in book_list:
             book.save()
         i = Book.query.all()

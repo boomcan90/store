@@ -6,8 +6,11 @@ from .compat import basestring
 from .extensions import db
 
 # Alias common SQLAlchemy names
+String = db.String
+Integer = db.Integer
 Column = db.Column
 relationship = relationship
+ForeignKey = db.ForeignKey
 
 
 class CRUDMixin(object):

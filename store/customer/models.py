@@ -1,4 +1,4 @@
-
+"""Customer model."""
 
 from store.database import Column, db
 from store.user.models import User
@@ -7,9 +7,10 @@ from store.user.models import User
 class Customer(User):
     """Customer class inherit from User table."""
 
+    __tablename__ = 'customer'
     __mapper_args__ = {'polymorphic_identity': 'customer'}
 
-    id = Column(db.String, db.ForeignKey('user.id'), primary_key=True)
+    id = Column(db.String, db.ForeignKey("user.id"), primary_key=True)
     m_credit_no = Column(db.String(64), nullable=True)
     phone_no = Column(db.String(15), nullable=True)
     address = Column(db.String(255), nullable=True)
@@ -28,4 +29,3 @@ class Customer(User):
     def __repr__(self):
         """Represent instance as an unique string."""
         return '<Customer({id!r})>'.format(id=self.id)
-

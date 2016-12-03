@@ -29,6 +29,8 @@ class User(UserMixin, Model):
         'polymorphic_on': 'user_type',
         'polymorphic_identity': 'manager'}
 
+    reviews = db.relationship("Feedback", back_populates="user")
+
     def __init__(self, id, email, password=None, **kwargs):
         """Create instance."""
         db.Model.__init__(self, id=id, email=email, **kwargs)

@@ -2,14 +2,15 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from store import commands, public, user, book, customer, orders
+from store import commands, public, user, book, customer, orders, feedback
 # from store.assets import assets
-from store.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate # noqa
+from store.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate  # noqa
 from store.settings import ProdConfig
 
 
 def create_app(config_object=ProdConfig):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
+
     :param config_object: The configuration object to use.
     """
     app = Flask(__name__.split('.')[0])
@@ -42,6 +43,7 @@ def register_blueprints(app):
     app.register_blueprint(book.views.book_blueprint)
     app.register_blueprint(orders.views.order_blueprint)
     app.register_blueprint(customer.views.customer_blueprint)
+    app.register_blueprint(feedback.views.feedback_blueprint)
     return None
 
 
@@ -67,7 +69,8 @@ def register_shellcontext(app):
             'Customer': customer.models.Customer,
             'Book': book.models.Book,
             'Order': orders.models.Order,
-            'OrderConsistsOf': orders.models.OrderConsistsOf
+            'OrderConsistsOf': orders.models.OrderConsistsOf,
+            'Feedback': feedback.models.Feedback
         }
 
     app.shell_context_processor(shell_context)
