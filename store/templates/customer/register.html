@@ -38,22 +38,18 @@
             </form>
             <p class="has_account"><em>Already registered?</em> Click <a href="/user/login">here</a> to login.</p>
 
-            <div role="main">
+            <div role="main" class='stuff_for_errors'>
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-            <div class="row">
-              <div class="col-md-12">
                 {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">
-                  <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-                 {{message}}
+                  <!-- <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a> -->
+                 <label class="{{category}}">{{message}}</label>
                 </div><!-- end .alert -->
                 {% endfor %}
-              </div><!-- end col-md -->
-            </div><!-- end row -->
                 {% endif %}
             {% endwith %}
-        </div>
+            </div>
     </div>
 </section>
 {% endblock %}

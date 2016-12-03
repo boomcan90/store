@@ -1,1 +1,20 @@
-members.html
+{%extends "base_template.html"%}
+
+{%block content%}
+    <section id="banner" class="clearfix">
+        <div id="banner_content_wrapper">
+            <div class='member_headers'>
+                Username: <br>
+                Email ID: <br>
+                Credit Card Number: <br>
+                Phone Number: <br>
+            </div>
+            <div class="member_info">
+                {{current_user.id}} <br>
+                {{current_user.email}} <br>
+                {{current_user.m_credit_no}} <br>
+                {{current_user.phone_no}} <br>
+            </div>
+        </div>
+    </section>
+{%endblock%}

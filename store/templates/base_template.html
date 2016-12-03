@@ -23,6 +23,12 @@
             <a href="#" class="menu"><i class="fa fa-bars"></i></a>
             <div class="snipcart-summary">
                 <nav id="main_nav">
+                    {% if current_user.is_authenticated %}
+                    <p>Hi, {{ current_user.name }} {{current_user.id}}! </p><p>|</p>
+                    <a href="#">Logout</a>
+                    {% else %}
+                    <a href="http://localhost:5000/customer/login">Login</a>
+                    {% endif %}
                     <a href="#">New</a>
                     <a href="#">Top Grossing</a>
                     <a href="#">Search</a>
@@ -34,14 +40,13 @@
 
     <!-- user info can add in navbar -->
     <div>
-        {% if current_user.is_authenticated %}
-          This should be in the nav bar I think!?
+{#         {% if current_user.is_authenticated %}
           Hi {{ current_user.name }} | {{current_user.id}}!
           <p>You are a {{ current_user.user_type }} user!</p>
           [[Logout button]]
         {% else %}
         [[Login button]]
-        {% endif %}
+        {% endif %} #}
     </div>
     {%endblock%}
 

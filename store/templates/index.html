@@ -30,7 +30,15 @@
 		<div class="wrapper">
 			<header class="clearfix">
 				<h2>Popular Books</h2>
-				<p class="view_more">&nbsp;</p>
+				<p class="view_more">{% if books.has_prev %}
+					<a href="{{ url_for('public.home', page=books.prev_num) }}" class="active_back">&lt;&lt; Previous books</a>
+					{% else %}&lt;&lt;  Previous books
+					{% endif %} |
+					{% if books.has_next %}
+					<a href="{{ url_for('public.home', page=books.next_num) }}" class="active_forward">More books &gt;&gt;</a>
+					{% else %}More books &gt;&gt;
+					{% endif %}
+				</p>
 			</header>
 
 			<div class="row clearfix">
@@ -81,14 +89,6 @@
 			</div>
 		</div> -->
 	<!-- book nav -->
-		{% if books.has_prev %}
-		<a href="{{ url_for('public.home', page=books.prev_num) }}">&lt;&lt; Previous books</a>
-		{% else %}&lt;&lt;  Previous books
-		{% endif %} |
-		{% if books.has_next %}
-		<a href="{{ url_for('public.home', page=books.next_num) }}">More books &gt;&gt;</a>
-		{% else %}More books &gt;&gt;
-		{% endif %}
 	</section>
 
 	<section id="newsletter">
