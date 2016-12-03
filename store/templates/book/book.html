@@ -1,12 +1,30 @@
-<html>
-    <head>
-        {% block head %}
-        <title>{% block title %}{% endblock %}</title> 
-        {% endblock %}
-    </head>
-<body>
-{% block body %}
-    {% if book %}
+{% extends 'base_template.html' %}
+{% block content %}
+
+<section id="banner" class="clearfix">
+    <div id="banner_content_wrapper">
+        <div id="poster">
+                <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" class="featured_image">
+            </div>
+            <div id="content">
+                <h2 class="title">{{book["title"]}}</h2>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star inactive"></i>
+                </div>
+
+                <p class="info"> {{book['author']}} | {{book['publisher']}}</p>
+                <div class="buy">
+                <p class="info">${{book.price}}</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "{{book['price']}}" data-item-name="{{book.title}}" data-item-url="http://www.booksrus.com"> Buy now</button>
+                </div>
+
+                <p class="description">The Corleone family and the mob war fight with the other four mafia families in New York is the central issue. After Don Vito Corleone is shot by men working for drug dealer Virgil "The Turk" Sollozzo, Corleone's two sons, Santino and Michael, must run the family business with the help of consigliere Tom Hagen and the two caporegime Peter Clemenza and Salvatore Tessio.</p>
+            </div>
+    </div>
+</section>
         <div>
             {{ book['isbn13'] }}
             {{ book['title'] }}
@@ -16,7 +34,7 @@
             {{ book['num_of_copies'] }}
             ${{ book['price'] }}
         </div>
-    {% endif %}
+
 
 {% endblock %}
 </body>

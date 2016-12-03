@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% block head %}
     <title>Books`R`Us | Team Ruobin</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script src="static/js/main.js"></script>
     <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MjQzODllNjUtMzlkNy00YzgxLTk4YjgtOWU1NzJkYWFmNmJkNjM2MTQ5NTYzODUwODQyNjEx" data-autopop="false"></script>
     <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
-    {% endblock %}
 </head>
 <body>
-    {% block header %}
     <header id="top_header" class="clearfix">
         <div class="wrapper">
             <h1 class="logo">Books<span>`R`</span>Us</h1>
@@ -23,12 +20,6 @@
             <a href="#" class="menu"><i class="fa fa-bars"></i></a>
             <div class="snipcart-summary">
                 <nav id="main_nav">
-                    {% if current_user.is_authenticated %}
-                    <p>Hi, {{ current_user.name }} {{current_user.id}}! </p><p>|</p>
-                    <a href="#">Logout</a>
-                    {% else %}
-                    <a href="http://localhost:5000/customer/login">Login</a>
-                    {% endif %}
                     <a href="#">New</a>
                     <a href="#">Top Grossing</a>
                     <a href="#">Search</a>
@@ -38,23 +29,16 @@
         </div>
     </header>
 
-    <!-- user info can add in navbar -->
-    <div>
-{#         {% if current_user.is_authenticated %}
-          Hi {{ current_user.name }} | {{current_user.id}}!
-          <p>You are a {{ current_user.user_type }} user!</p>
-          [[Logout button]]
-        {% else %}
-        [[Login button]]
-        {% endif %} #}
-    </div>
-    {%endblock%}
+    <section id="banner" class="clearfix">
+        <div id="banner_content_wrapper">
+            <form action="#" class="search">
+                <input type="text" placeholder="Author / Book name / Genre" class='search_bar'/>
+                <input type="submit" class="button submitBtn" value='Search'>
+            </form>
+        </div>
+    </section>
 
-    {%block content%}
 
-    {%endblock%}
-
-    {% block footer%}
     <footer id="main_footer">
         <p class="logo">Books<span>`R`</span>Us</p>
         <p class="copyright">&copy;2016 Books`R`Us. All Rights Reserved.</p>
@@ -63,6 +47,5 @@
             <a href="#">Privacy Policy</a>
         </div>
     </footer>
-    {%endblock%}
 </body>
 </html>

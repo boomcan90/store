@@ -22,7 +22,7 @@ customer_blueprint = Blueprint(
 @login_required
 def members():
     """Customer Index Route."""
-    return "customer"
+    return render_template("customer/members.html")
 
 
 @customer_blueprint.route('/login', methods=['GET', 'POST'])
