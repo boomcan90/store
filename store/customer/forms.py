@@ -78,4 +78,5 @@ class LoginFormCustomer(Form):
         if not self.customer.active:
             self.customername.errors.append('User not activated')
             return False
+        
         return True

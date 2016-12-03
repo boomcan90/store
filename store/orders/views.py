@@ -36,6 +36,19 @@ def browse_list():
     result = Order.query.all()
     return jsonify(data=[x.to_json() for x in result])
 
+
+# Order history for the customer
+@order_blueprint.route('/orderHistory/', methods=['GET'])
+def order_history():
+    """Order history."""
+    if current_user.is_authenticated:
+        id = current_user.get_id()
+        # now, to return order history of the user- returns isbn13 of book that customer has ordered
+        q = OrderConsistsOf.query.join(Order, (OrderConsistsOf.consists_order_id == Order.order_id)).\
+            filter(Order.customer_id == id).all()
+
+        return jsonify(data=[x.to_json() for x in q])
+
 # ---------------------------------------------------------------------------
 
 
