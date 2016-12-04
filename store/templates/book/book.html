@@ -63,11 +63,15 @@
 
     {% if reviews %}
         {% for review in reviews %}
-            <p>{{ review.user_id }} {{ review.short_text }} {{ review.score }}</p>
+            <p>Written by: {{ review.user_id }}</p>
+            <p>Short text: {{ review.short_text }}</p>
+            <p>Score given: {{ review.score }}</p>
             <!-- also need to check if a rating by user already exists for the feedback -->
             {% if current_user.id == review.user_id %} NO RATING ALLOWED FOR YOUR OWN REVIEW! {% endif %}
             {% if review.has_rated(current_user.id) %} You have already rated this feedback/review {% endif %}
-            <p><a href="">useless +0</a> <a href="">useful +1</a> <a href="">very useful +2</a>  <span>rating: (total) {{ review.ratings }}</span></p>
+            <p><a href="">useless +0</a> <a href="">useful +1</a> <a href="">very useful +2</a></p>
+            <p><span>Average rating: {{ review.avg_rating() }}</span></p>
+            <hr>
         {% endfor %}
     {% endif %}
     {% endblock %}

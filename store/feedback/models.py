@@ -1,6 +1,7 @@
 """Feedback models."""
 
 from store.database import db
+from sqlalchemy.sql import func
 
 
 class Feedback(db.Model):
@@ -32,9 +33,30 @@ class Feedback(db.Model):
 
     def has_rated(self, current_user_id):
         """Check if user has rated feedback."""
-        rcount = Rates.query.filter_by(rater_id=current_user_id, feedback_id=self.id).count()
-        print(rcount)
+        rcount = Rates.query.filter_by(
+            rater_id=current_user_id, feedback_id=self.id).count()
         return rcount != 0
+
+    def total_rating(self):
+        """Return sum of ratings for feedback.
+
+        func.sum(Rates.rating).label("total")
+        returns a Column or same type object it was given.
+        Hence, need to use "with_entities(Rates ..."
+        """
+        # total = db.session.query(func.sum(Rates.rating).label(
+        #     "total")).filter(Rates.feedback_id == self.id).scalar()
+        total = Rates.query.with_entities(func.sum(Rates.rating).label(
+            "total")).filter_by(feedback_id=self.id).scalar()
+        if not total:
+            total = 0
+        return total
+
+    def avg_rating(self):
+        """Return avg of ratings for feedback."""
+        avg = Rates.query.with_entities(func.avg(Rates.rating).label(
+            "total")).filter_by(feedback_id=self.id).scalar()
+        return "{:.2f}".format(avg)
 
 
 class Rates(db.Model):

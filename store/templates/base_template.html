@@ -24,7 +24,7 @@
             <div class="snipcart-summary">
                 <nav id="main_nav">
                     {% if current_user.is_authenticated %}
-                    <p>Hi, {{ current_user.name }} {{current_user.id}}! </p><p>|</p>
+                    <p>Hi, {{ current_user.name }} <a href="{{ url_for('customer.members') }}">{{current_user.id}}!</a> </p><p>|</p>
                     <a href="{{ url_for('customer.logout') }}">Logout</a>
                     {% else %}
                     <a href="{{ url_for('customer.login') }}">Login</a>
