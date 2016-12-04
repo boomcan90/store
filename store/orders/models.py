@@ -30,6 +30,9 @@ class Order(Model):
     customer_id = Column(db.String(80), db.ForeignKey('user.id'))
     customer = db.relationship(Customer, backref="orders")
 
+    main_order = db.relationship("OrderConsistsOf", back_populates="order")
+
+
     # customer_id = Column(db.String(80), unique=True, nullable=False)
     date = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     qty = Column(db.Integer, default=1)
@@ -98,8 +101,8 @@ class OrderConsistsOf(Model):
     # Non foreign key
     consists_qty = Column(db.Integer, default=1)
 
-    book = db.relationship(Book, backref="consists_of")
-    order = db.relationship(Order, backref="consists_of")
+    book = db.relationship("Book", back_populates="book_in_order")
+    order = db.relationship("Order", back_populates="main_order")
 
     def __init__(self, consists_order_id, consists_isbn13, consists_qty, **kwargs):
         """Create instance."""
@@ -123,3 +126,5 @@ class OrderConsistsOf(Model):
     def to_json(self):
         """JSON."""
         return dict(id=self.consists_order_id, isbn13=self.consists_isbn13, quantity=self.consists_qty)
+
+
