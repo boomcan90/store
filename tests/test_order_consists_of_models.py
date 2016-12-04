@@ -16,12 +16,12 @@ class TestOrderConsistsOf:
 
     def test_create_order_consists_of_for_order_and_book(self):
         """Retrieve a list of orders consisting of books."""
-
         b1 = Book('9780439708180', "Harry Potter and the Philosopher's Stone",
                   "J. K. Rowling", "Scholastic", 1999, 10, 6.79, "paperback", "fantasy", "fantasy")
         b1.save()
 
-        c1 = Customer('foo', 'foo@bar.com', "3241234", "12341234", "coolstreet")
+        c1 = Customer('foo', 'foo@bar.com', "3241234",
+                      "12341234", "coolstreet")
         c1.save()
 
         o1 = Order('o1', c1.id)
@@ -31,17 +31,17 @@ class TestOrderConsistsOf:
         oco.save()
 
         q = OrderConsistsOf.query.filter_by(consists_qty=42).all()
-        
+
         assert len(q) == 1
 
-
     def test_check_if_book_is_book_in_consists_of(self):
-
+        """Check book is in consists of."""
         book = Book('9780439708180', "Harry Potter and the Philosopher's Stone",
-                  "J. K. Rowling", "Scholastic", 1999, 10, 6.79, "paperback", "fantasy", "fantasy")
+                    "J. K. Rowling", "Scholastic", 1999, 10, 6.79, "paperback", "fantasy", "fantasy")
         book.save()
 
-        customer = Customer('foo', 'foo@bar.com', "3241234", "12341234", "coolstreet")
+        customer = Customer('foo', 'foo@bar.com', "3241234",
+                            "12341234", "coolstreet")
         customer.save()
 
         order = Order('o1', customer.id)
@@ -52,4 +52,5 @@ class TestOrderConsistsOf:
 
         retrieved = OrderConsistsOf.get_by_id((order.order_id, book.isbn13))
 
-        assert (retrieved.consists_order_id, retrieved.consists_isbn13) == ('o1', '9780439708180')
+        assert (retrieved.consists_order_id, retrieved.consists_isbn13) == (
+            'o1', '9780439708180')

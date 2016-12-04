@@ -4,7 +4,7 @@
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 from .forms import RegisterForm
 
@@ -13,6 +13,8 @@ from .forms import LoginFormCustomer
 from store.utils import flash_errors
 
 from .models import Customer
+
+from store.feedback.models import Rates
 
 
 customer_blueprint = Blueprint(
@@ -23,7 +25,8 @@ customer_blueprint = Blueprint(
 @login_required
 def members():
     """Customer Index Route."""
-    return render_template("customer/members.html")
+    ratings = Rates.query.filter_by(rater_id=current_user.id).order_by(Rates.rating.desc())
+    return render_template("customer/members.html", ratings=ratings)
 
 
 @customer_blueprint.route('/login', methods=['GET', 'POST'])
