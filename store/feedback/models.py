@@ -30,6 +30,12 @@ class Feedback(db.Model):
         return '<Feedback({!r}:{!r}{!r})>score={},text={}' \
             .format(self.id, self.user_id, self.book_id, self.score, self.short_text)
 
+    def has_rated(self, current_user_id):
+        """Check if user has rated feedback."""
+        rcount = Rates.query.filter_by(rater_id=current_user_id, feedback_id=self.id).count()
+        print(rcount)
+        return rcount != 0
+
 
 class Rates(db.Model):
     """Rate relationship table."""
