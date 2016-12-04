@@ -1,0 +1,18 @@
+u1 = User("user1", "user1@user.com")
+u2 = User("user2", "user2@user.com")
+f2 = Feedback("user2","9780307744432", 3, short_text="Very nice")
+u1.save()
+u2.save()
+u2.reviews.append(f2)
+u2.save()
+r1 = Rates(1, "user1", "user2", 5)
+u1.ratings_given.append(r1)
+u1.save()
+Rates.query.all()
+
+f3 = Feedback("user2", "9780345803481", 5, short_text="Wow.")
+r1 = Rates(6, "user1", "user2", 5)
+
+f = Feedback.query.first()
+f.ratings
+[<Rates(6'user1')>rated_id=user2,rating=5]

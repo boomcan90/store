@@ -26,6 +26,38 @@
     </div>
 </section>
 
+{% if feedbackform %}
+<div>
+    <h1>Submit Feedback</h1>
+    <form id="feedbackform" class="form form-feedback" method="POST" action="" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            {{feedbackform.short_text(placeholder="Short text", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{feedbackform.score(placeholder="Score", class_="form-control")}}
+        </div>
+        {{feedbackform.submit(placeholder="Score", class_="form-control", type="hidden", value="submit")}}
+        <p><input class="btn btn-default btn-submit" type="submit" value="Submit Feedback"></p>
+    </form>
+</div>
+{% endif %}
+<div role="main">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="row">
+<div class="col-md-12">
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+   {{message}}
+  </div><!-- end .alert -->
+  {% endfor %}
+</div><!-- end col-md -->
+</div><!-- end row -->
+  {% endif %}
+{% endwith %}
+</div>
 <div>
     <h1>Reviews</h1>
 

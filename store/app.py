@@ -71,7 +71,7 @@ def register_shellcontext(app):
             'Order': orders.models.Order,
             'OrderConsistsOf': orders.models.OrderConsistsOf,
             'Feedback': feedback.models.Feedback,
-            # 'Rates': feedback.models.Rates
+            'Rates': feedback.models.Rates
         }
 
     app.shell_context_processor(shell_context)

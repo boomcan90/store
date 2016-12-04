@@ -8,6 +8,7 @@ from flask_login import UserMixin
 from store.compat import basestring
 from store.database import Column, Model, db
 from store.extensions import bcrypt
+# from store.feedback.models import Rates
 
 
 class User(UserMixin, Model):
@@ -28,6 +29,13 @@ class User(UserMixin, Model):
     __mapper_args__ = {
         'polymorphic_on': 'user_type',
         'polymorphic_identity': 'manager'}
+
+    # followed = db.relationship('Rates',
+    #                            primaryjoin=(Rates.rater_id == id),
+    #                            secondaryjoin=(Rates.rated_id == id),
+    #                            backref=db.backref('rates'))
+
+    ratings_given = db.relationship("Rates", back_populates="rater", primaryjoin="Rates.rater_id==User.id")
 
     reviews = db.relationship("Feedback", back_populates="user")
 
