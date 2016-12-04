@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Cellar Model unit tests."""
+"""Order Model unit tests."""
 
 import pytest
 

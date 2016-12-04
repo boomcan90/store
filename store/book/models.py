@@ -21,6 +21,8 @@ class Book(Model):
     subject = Column(db.String(128), nullable=False)
 
     reviewers = db.relationship("Feedback", back_populates="book")
+    book_in_order = db.relationship("OrderConsistsOf", back_populates="book")
+
 
     def __init__(self, isbn13, title, author, publisher, year_of_pub,
                  num_of_copies, price, format, keywords, subject):
