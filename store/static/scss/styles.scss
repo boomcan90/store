@@ -85,10 +85,17 @@ h1, h2, h3, h4, h5, h6 {
 			-moz-box-shadow: 0px 0px 76px 0px rgba(0, 0, 0, 0.47);
 		  box-shadow: 0px 0px 76px 0px rgba(0, 0, 0, 0.47);
 		}
+		.info {
+				display: inline-block;
+				color: $white;
+				font-size: 1em;
+				font-weight: 700;
+				margin-top: 3em;
+			}
 	}
 	#content {
 		float: left;
-		width: 500px;
+		width: 450px;
 		margin-left: 100px;
 		.title {
 			display: inline;
