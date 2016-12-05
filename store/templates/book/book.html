@@ -69,6 +69,7 @@
             <!-- also need to check if a rating by user already exists for the feedback -->
             {% if current_user.id == review.user_id %} NO RATING ALLOWED FOR YOUR OWN REVIEW! {% endif %}
             {% if review.has_rated(current_user.id) %} You have already rated this feedback/review {% endif %}
+            <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
             <p><a href="">useless +0</a> <a href="">useful +1</a> <a href="">very useful +2</a></p>
             <p><span>Average rating: {{ review.avg_rating() }}</span></p>
             <hr>
