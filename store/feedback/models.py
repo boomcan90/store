@@ -56,6 +56,8 @@ class Feedback(db.Model):
         """Return avg of ratings for feedback."""
         avg = Rates.query.with_entities(func.avg(Rates.rating).label(
             "total")).filter_by(feedback_id=self.id).scalar()
+        if not avg:
+            return "None"
         return "{:.2f}".format(avg)
 
 

@@ -42,6 +42,7 @@
     </form>
 </div>
 {% endif %}
+
 <div role="main">
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -62,6 +63,10 @@
     <h1>Reviews</h1>
 
     {% if reviews %}
+
+    <div>
+        Number of top feedback: <input type="number" id="nFeedback" name="num_feedback" min="0" value="0"/> <button type="submit" id="filterFeedback">Filter</button>
+    </div>
         {% for review in reviews %}
             <p>Written by: {{ review.user_id }}</p>
             <p>Short text: {{ review.short_text }}</p>
@@ -70,11 +75,25 @@
             {% if current_user.id == review.user_id %} NO RATING ALLOWED FOR YOUR OWN REVIEW! {% endif %}
             {% if review.has_rated(current_user.id) %} You have already rated this feedback/review {% endif %}
             <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
-            <p><a href="">useless +0</a> <a href="">useful +1</a> <a href="">very useful +2</a></p>
+            <p><a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=0) }}">useless +0</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=1) }}">useful +1</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=2) }}">very useful +2</a></p>
             <p><span>Average rating: {{ review.avg_rating() }}</span></p>
             <hr>
         {% endfor %}
     {% endif %}
+
+    <script type="text/javascript">
+        var button = document.querySelector('#filterFeedback');
+        button.addEventListener("click", function() {
+            var n = document.querySelector("#nFeedback").value;
+            window.location.href = "{{url_for('book.details', isbn13=book.isbn13)}}/"+n;
+        })
+
+        var arr = document.URL.split('/');
+        var lastParam = arr[arr.length-1];
+        if (lastParam.length < 13) {
+            document.querySelector("#nFeedback").value = lastParam;
+        }
+    </script>
     {% endblock %}
 
 </div>
@@ -91,4 +110,5 @@
 
 
 </body>
+
 </html>

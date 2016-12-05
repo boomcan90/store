@@ -7,10 +7,12 @@ from store.book.forms import AddBookForm, UpdateBookForm
 
 from store.customer.models import Customer
 
-from store.feedback.models import Feedback
+from store.feedback.models import Feedback, Rates
 from store.feedback.forms import FeedbackForm
 
 from store.utils import flash_errors
+from store.database import db
+from sqlalchemy import func
 
 
 book_blueprint = Blueprint(
@@ -95,7 +97,8 @@ def browse():
 
 
 @book_blueprint.route('/details/<isbn13>', methods=['GET', 'POST'])
-def details(isbn13=None):
+@book_blueprint.route('/details/<isbn13>/<int:num_feedbacks>', methods=['GET', 'POST'])
+def details(isbn13=None, num_feedbacks=0):
     """Book detail."""
     book = Book.query.filter_by(isbn13=isbn13)
     book = book.first()
@@ -116,6 +119,7 @@ def details(isbn13=None):
                                    short_text=feedbackform.short_text.data, score=feedbackform.score.data)
 
             customer = Customer.query.filter_by(id=current_user.id).first()
+            print(customer)
             customer.reviews.append(newfeedback)
 
             customer.save()
@@ -127,6 +131,9 @@ def details(isbn13=None):
             flash_errors(feedbackform)
 
     reviews = Feedback.query.filter_by(book_id=isbn13).all()
+    if num_feedbacks > 0:
+        reviews = db.session.query(Feedback).join(Rates).filter(
+            Feedback.book_id == isbn13).group_by(Feedback).order_by(func.avg(Rates.rating).desc()).all()[:num_feedbacks]
 
     return render_template('book/book.html', book=book, reviews=reviews, feedbackform=feedbackform)
 
