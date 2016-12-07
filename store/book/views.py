@@ -12,7 +12,6 @@ from store.feedback.forms import FeedbackForm
 
 from flask_login import current_user
 
-
 from store.utils import flash_errors
 from store.database import db
 from sqlalchemy import func
@@ -98,15 +97,9 @@ def browse():
 
     return render_template('book/browse.html', books=book)
 
-<<<<<<< Updated upstream
-
 @book_blueprint.route('/details/<isbn13>', methods=['GET', 'POST'])
 @book_blueprint.route('/details/<isbn13>/<int:num_feedbacks>', methods=['GET', 'POST'])
 def details(isbn13=None, num_feedbacks=0):
-=======
-@book_blueprint.route('/details/<isbn13>', methods=['GET'])
-def details(isbn13=None):
->>>>>>> Stashed changes
     """Book detail."""
     book = Book.query.filter_by(isbn13=isbn13)
     book = book.first()
