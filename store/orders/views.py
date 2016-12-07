@@ -49,6 +49,18 @@ def order_history():
 
         return jsonify(data=[x.to_json() for x in q])
 
+# @order_blueprint.route('/recommend/<isbn13>', methods=['GET'])
+# def reccomendation(isbn13):
+#     """Get book recommendation"""
+#     if current_user.is_authenticated:
+#         id = current_user.get_id()
+#         # get the book rec
+#         q1 = OrderConsistsOf.query.filter(OrderConsistsOf.consists_isbn13).all()
+
+#         list_of_orderid = [x.to_json() for x in result]
+
+#         for element in list
+
 # ---------------------------------------------------------------------------
 
 
