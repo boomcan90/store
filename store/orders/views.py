@@ -38,16 +38,13 @@ def browse_list():
 
 
 # Order history for the customer
-@order_blueprint.route('/orderHistory/', methods=['GET'])
-def order_history():
+@order_blueprint.route('/orderHistory/<id>', methods=['GET'])
+def order_history(id):
     """Order history."""
-    if current_user.is_authenticated:
-        id = current_user.get_id()
-        # now, to return order history of the user- returns isbn13 of book that customer has ordered
-        q = OrderConsistsOf.query.join(Order, (OrderConsistsOf.consists_order_id == Order.order_id)).\
+    q = OrderConsistsOf.query.join(Order, (OrderConsistsOf.consists_order_id == Order.order_id)).\
             filter(Order.customer_id == id).all()
 
-        return jsonify(data=[x.to_json() for x in q])
+    return jsonify(data=[x.to_json() for x in q])
 
 # @order_blueprint.route('/recommend/<isbn13>', methods=['GET'])
 # def reccomendation(isbn13):

@@ -28,6 +28,13 @@ def members():
     ratings = Rates.query.filter_by(rater_id=current_user.id).order_by(Rates.rating.desc())
     return render_template("customer/members.html", ratings=ratings)
 
+@customer_blueprint.route('/orderHistory')
+@login_required
+def orderHistory():
+    uid = current_user.get_id()
+    """Customer order history Route."""
+    
+    return redirect(url_for('orders.order_history', id=uid))
 
 @customer_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
