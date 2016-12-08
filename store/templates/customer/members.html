@@ -18,30 +18,40 @@
         </div>
     </section>
 
-    <section id="" class="clearfix">
-        <div id="">
+    <section id="members_reviews_given" class="clearfix">
             {% if current_user.reviews %}
-            <h2>Reviews you have given</h2>
-            <div>
+                <h2>Reviews you've given: </h2>
                 {% for review in current_user.reviews %}
+                <div id="content">
                     <a href="{{url_for('book.details', isbn13=review.book_id)}}">{{review.book.title}}</a>
-                    <p>{{ review.user_id }} {{ review.short_text }} {{ review.score }}</p>
+                    <p></p>
+                    <table>
+                        <tr><td>Score:</td><td class="table_padding">{{review.score}}</td></tr>
+                        <tr><td>Review:</td><td class="table_padding">{{review.short_text}}</td></tr>
+                    </table>
+                </div>
+                <hr>
                 {% endfor %}
-            </div>
-            {% endif %}
-        </div>
+                {% endif %}
+
+
     </section>
 
-    <section id="" class="clearfix">
-        <div id="">
+    <section id="members_ratings_given" class="clearfix">
             {% if ratings %}
-            <h2>Ratings you have given (in desc order)</h2>
-            <div>
-                {% for rating in ratings %}
-                    <p>"{{ rating.feedbacks.short_text }}, score={{ rating.feedbacks.score }}" - you rated it {{rating.rating}}</p>
-                {% endfor %}
-            </div>
+            <h2>Ratings you have given (in descending order)</h2>
+            {% for rating in ratings %}
+                <div id="content">
+                    <a href="{{url_for('book.details', isbn13=rating.feedbacks.book_id)}}">{{rating.feedbacks.book.title}}</a>
+                    <p></p>
+                    <table>
+                        <tr><td>Review:</td><td class="table_padding">{{rating.feedbacks.short_text}}</td></tr>
+                        <tr><td>Review Score:</td><td class="table_padding">{{rating.feedbacks.score}}</td></tr>
+                        <tr><td>Your Rating:</td><td class="table_padding">{{rating.rating}}</td></tr>
+                    </table>
+                </div>
+                <hr>
+            {% endfor %}
             {% endif %}
-        </div>
     </section>
 {%endblock%}

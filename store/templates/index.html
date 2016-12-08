@@ -1,27 +1,26 @@
 {%extends "base_template.html"%}
 	{% block content %}
 
+
 	<section id="banner" class="clearfix">
 		<div id="banner_content_wrapper">
 			<div id="poster">
-				<img src="{{url_for('static', filename='images/books/')}}godfather.jpg" alt="Godfather cover art" class="featured_image">
+				<img src="{{url_for('static', filename='images/books/')}}{{best.items[0]['isbn13']}}.jpg" alt="Godfather cover art" class="featured_image">
 			</div>
 			<div id="content">
-				<h2 class="title">The Godfather</h2>
+				<h2 class="title"><a href="{{ url_for('book.details', isbn13=best.items[0]['isbn13']) }}">{{best.items[0]['title']}}</a></h2>
 				<div class="ratings">
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star"></i>
-					<i class="fa fa-star inactive"></i>
+					<div class="star-ratings-css">
+                          <div class="star-ratings-css top" style="width: {{best.items[0]['avgfb'] * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                          <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        </div>
 				</div>
 
 				<!-- <p class="info"> SOLD OUT </p> -->
 				<div class="buy">
-				<p class="info">$10.00</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
+				<p class="info">${{best.items[0]['price']}}</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
 				</div>
 
-				<p class="description">The Corleone family and the mob war fight with the other four mafia families in New York is the central issue. After Don Vito Corleone is shot by men working for drug dealer Virgil "The Turk" Sollozzo, Corleone's two sons, Santino and Michael, must run the family business with the help of consigliere Tom Hagen and the two caporegime Peter Clemenza and Salvatore Tessio.</p>
 			</div>
 		</div>
 	</section>
@@ -46,7 +45,7 @@
 				{% for book in books.items %}
 				<div class="post">
 					<img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" alt="HP1">
-					<h3 class="title">{{ book.title }}</h3>
+					<h3 class="title"><a href="{{url_for('book.details', isbn13=book['isbn13'])}}">{{ book.title }} </a></h3>
 					<p class="post_info">{{ "${:.2f}".format(book.price) }}</p>
 				</div>
 				{% endfor %}

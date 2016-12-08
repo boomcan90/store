@@ -1,16 +1,39 @@
-<h1>Browse books</h1>
-{% if books %}
-    {% for book in books %}
-        <div>
-            {{ book['isbn13'] }}
-            {{ book['title'] }}
-            {{ book['author'] }}
-            {{ book['publisher'] }}
-            {{ book['year_of_pub'] }}
-            {{ book['num_of_copies'] }}
-            ${{ book['price'] }}
+{% extends 'base_template.html'%}
+{% block content %}
 
-            <a href="{{ url_for('book.details', isbn13=book.isbn13) }}">View product</a>
-        </div>
-    {% endfor %}
-{% endif %}
+<section id="banner_result_header" class="clearfix">
+     <header class="clearfix result">
+        <h1 align="center">All Books</h1>
+    </header>
+</section>
+
+<section id="browse_results" class="clearfix">
+    <div class="wrapper">
+        {% if books %}
+            {% for book in books %}
+            <div id="banner_content_wrapper">
+                <div id="poster">
+                    <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" alt="{{book['title']}} cover art" class="featured_image">
+                </div>
+                <div id="content">
+                    <h2 class="title"><a href="{{ url_for('book.details', isbn13=book.isbn13) }}">{{book['title']}}</a></h2>
+                    <div class="ratings">
+                        <div class="star-ratings-css">
+                          <div class="star-ratings-css top" style="width: {{book['avgfb'] * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                          <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        </div>
+                    </div>
+
+                    <div class="buy">
+                    <p class="info">${{book['price']}}</p><button class="snipcart-add-item button_search" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
