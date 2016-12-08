@@ -3,6 +3,10 @@
 
 from store.database import Column, Model, db
 from store.compat import basestring
+from sqlalchemy.ext.hybrid import hybrid_property, Comparator
+# from sqlalchemy_utils import aggregated
+from store.feedback.models import Feedback
+from sqlalchemy import func, case
 
 
 class Book(Model):
@@ -23,6 +27,10 @@ class Book(Model):
     reviewers = db.relationship("Feedback", back_populates="book")
     book_in_order = db.relationship("OrderConsistsOf", back_populates="book")
 
+    # @aggregated('avgfb', db.Column(db.Float))
+    # def avg_feedback_score(self):
+    #     """Avg."""
+    #     return db.func.avg(Feedback.score)
 
     def __init__(self, isbn13, title, author, publisher, year_of_pub,
                  num_of_copies, price, format, keywords, subject):
@@ -57,3 +65,24 @@ class Book(Model):
     def book_title(self):
         """Book title."""
         return '{0} {1}'.format(self.title)
+
+    @hybrid_property
+    def avgfb(self):
+        """Avg."""
+        if len(self.reviewers) > 0:
+            return sum([f.score for f in self.reviewers]) / len(self.reviewers)
+        else:
+            return 0
+
+    # @avgfb.expression
+    # def avgfb(self):
+    #     """Avg exp."""
+    #     return Book.avgfb
+
+    @avgfb.expression
+    def avgfb(cls):
+        """Return avg of score for books from feedback."""
+        # http://docs.sqlalchemy.org/en/rel_0_9/orm/extensions/hybrid.html#correlated-subquery-relationship-hybrid
+
+        return Feedback.query.with_entities(func.avg(Feedback.score).label(
+            "total")).filter_by(book_id=cls.isbn13)

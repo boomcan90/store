@@ -3,7 +3,7 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for, abort
 from flask_login import current_user, login_required  # noqa
 from store.book.models import Book
-from store.book.forms import AddBookForm, UpdateBookForm
+from store.book.forms import AddBookForm, UpdateBookForm, SearchBookForm
 
 from store.customer.models import Customer
 
@@ -12,7 +12,7 @@ from store.feedback.forms import FeedbackForm
 
 from store.utils import flash_errors
 from store.database import db
-from sqlalchemy import func
+from sqlalchemy import func, and_, desc
 
 
 book_blueprint = Blueprint(
@@ -140,9 +140,36 @@ def details(isbn13=None, num_feedbacks=0):
 
 @book_blueprint.route('/search', methods=['GET', 'POST'])
 def search():
-    """Page for performing conjunctive queries on books."""
+    """Page for performing conjunctive queries on books.
+
+    Professor said we can just do AND.
+    """
+    form = SearchBookForm(request.form)
     # TODO: some search form for doing conjunctive queries.
     # t = Book.query.filter(or_(and_(Book.format=="paperback", Book.price < 8), Book.subject=="romance"))
     # t = Book.query.filter(or_(and_(*[Book.format=="paperback", Book.price < 8]),
     # *[Book.subject=="romance", Book.author=="JK"]))
-    return render_template('book/search.html')
+    result = None
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            query_array = []
+            for fieldname, value in form.data.items():
+                if value and (fieldname is not "order"):
+                    # Book.{method}.contains()
+                    query_array.append(getattr(Book, fieldname).contains(value))
+
+                if fieldname == "order":
+                    if value == "avgfb":
+                        # Book.avgfb is a Basequery
+                        ordering = desc(Book.avgfb)
+                    else:
+                        ordering = Book.year_of_pub.desc()
+            q = Book.query.filter(and_(*query_array)).order_by(ordering)
+            print(q)
+            result = q.all()
+            print(result)
+            return render_template('book/search.html', form=form, result=result)
+        else:
+            flash_errors(form)
+    return render_template('book/search.html', form=form)

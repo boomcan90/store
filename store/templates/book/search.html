@@ -1,2 +1,58 @@
 <h1>Search</h1>
-<p>Some form for searching... TODO.</p>
+<form id="searchBookForm" class="form form-register" method="POST" action="" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            {{form.title(placeholder="Title", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.author(placeholder="Author", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.publisher(placeholder="Publisher", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.subject(placeholder="Subject", class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.order(placeholder="Order", class_="form-control")}}
+        </div>
+        <p><input class="btn btn-default btn-submit" type="submit" value="Search"></p>
+</form>
+
+<h1>Results</h1>
+
+{% if result %}
+    {% for book in result %}
+        <div>
+            {{ book['isbn13'] }}
+            {{ book['title'] }}
+            {{ book['author'] }}
+            {{ book['publisher'] }}
+            {{ book['year_of_pub'] }}
+            {{ book['num_of_copies'] }}
+            ${{ book['price'] }}
+            || Average score: {{ book.avgfb }}
+<!--             {% for review in book.reviewers %}
+                {{ review }}
+            {% endfor %} -->
+        </div>
+    {% endfor %}
+
+{% else %}
+<p>Nothing to see here...</p>
+{% endif %}
+
+<div role="main">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="row">
+<div class="col-md-12">
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+   {{message}}
+  </div><!-- end .alert -->
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}

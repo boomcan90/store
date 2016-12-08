@@ -30,14 +30,17 @@ class TestSearchForm:
 
     def test_search_form_valid(self, book):
         """Search Form should be valid."""
+        # form = SearchBookForm(author="J. K. Rowling",
+        #                       option1="and",
+        #                       publisher="Scholastic",
+        #                       option2="and",
+        #                       title="Harry Potter",
+        #                       option3="and",
+        #                       subject="fantasy")
         form = SearchBookForm(author="J. K. Rowling",
-                              option1="and",
                               publisher="Scholastic",
-                              option2="and",
                               title="Harry Potter",
-                              option3="and",
                               subject="fantasy")
-
         assert form.validate() is True
 
     def test_search_form_invalid(self, book):

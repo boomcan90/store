@@ -38,6 +38,10 @@ def rate_feedback():
         print("No such feedback object.")
         return abort(404)
 
+    if fb.user_id == current_user.id:
+        print("You cannot rate your own feedback!")
+        return abort(404)
+
     for rating in fb.ratings:
         if rating.rater_id == current_user.id:
             print("You already rated! This feedback!")
