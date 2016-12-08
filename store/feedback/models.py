@@ -14,9 +14,8 @@ class Feedback(db.Model):
     book_id = db.Column(db.String(13), db.ForeignKey(
         "book.isbn13"), primary_key=True)
     score = db.Column(db.Integer, nullable=False)  # 0 to 10.
+    date = db.Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
     short_text = db.Column(db.String(255), nullable=True, default="")
-
-    #  TODO: add date
 
     user = db.relationship("User", back_populates="reviews")
     book = db.relationship("Book", back_populates="reviewers")
