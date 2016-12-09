@@ -6,6 +6,7 @@ See: http://webtest.readthedocs.org/
 from flask import url_for
 from store.user.models import User
 from .factories import UserFactory
+import pytest
 
 
 class TestLoggingIn:

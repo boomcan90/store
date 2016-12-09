@@ -16,8 +16,8 @@ class TestBook:
 
     def test_book_is_not_not_found(self, testapp):
         """Book page 404."""
-        res = testapp.get('/book/book')
-        assert res.status_code != 404
+        res = testapp.get('/book/details', expect_errors=True)
+        assert res.status_code == 404
 
     def test_book_is_accessible(self, testapp):
         """Book page 200."""

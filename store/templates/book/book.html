@@ -1,83 +1,75 @@
-{% extends 'base_template.html' %}
-{% block content %}
-
+{% extends 'base_template.html' %} {% block content %}
 <section id="banner" class="clearfix">
     <div id="banner_content_wrapper">
+        {% if book %}
         <div id="poster">
-                <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" class="featured_image">
-            </div>
-            <div id="content">
-                <h2 class="title">{{book["title"]}}</h2>
-                <div class="ratings">
-                    <div class="star-ratings-css">
-                      <div class="star-ratings-css top" style="width: {{book['avgfb'] * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                      <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                    </div>
+            <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" class="featured_image">
+        </div>
+        <div id="content">
+            <h2 class="title">{{book["title"]}}</h2>
+            <div class="ratings">
+                <div class="star-ratings-css">
+                    <div class="star-ratings-css top" style="width: {{book['avgfb'] * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                 </div>
-
-                <p class="info"> {{book['author']}} | {{book['publisher']}}</p>
-                <div class="buy">
-                <p class="info">${{book.price}}</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "{{book['price']}}" data-item-name="{{book.title}}" data-item-url="http://www.booksrus.com"> Buy now</button>
-                </div>
-
             </div>
+            <p class="info"> {{book['author']}} | {{book['publisher']}}</p>
+            <div class="buy">
+                <p class="info">${{book.price}}</p>
+                <button class="snipcart-add-item button" data-item-id="2" data-item-price="{{book['price']}}" data-item-name="{{book.title}}" data-item-url="http://www.booksrus.com"> Buy now</button>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </section>
 <div class="reviews">
-
-
     <section id="banner_reviews_header" class="clearfix">
-         <header class="clearfix result">
+        <header class="clearfix result">
             <h1 align="center">Reviews</h1>
         </header>
     </section>
-
     {% if reviews %}
-
     <div class='filter'>
-        Show top  <input type="number" id="nFeedback" name="num_feedback" min="0" value="0"/> reviews <button type="submit" id="filterFeedback">Show!</button>
+        Show top
+        <input type="number" id="nFeedback" name="num_feedback" min="0" value="0" /> reviews
+        <button type="submit" id="filterFeedback">Show!</button>
     </div>
     <div class="review_container">
         {% for review in reviews %}
         <div class="author_container">
             <p class="author">{{ review.user_id }} - </p>
             <div class="star-ratings-css">
-              <div class="star-ratings-css top" style="width: {{review.score * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="star-ratings-css top" style="width: {{review.score * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
             </div>
         </div>
         <p class="avg_rating"><span>Average rating: {{ review.avg_rating() }}</span></p>
         <!-- <p class="score">Score given: {{ review.score }}</p> -->
         <p class='review_details'>{{ review.short_text }}</p>
         {% if current_user.is_authenticated %}
-            <!-- also need to check if a rating by user already exists for the feedback -->
-            {% if current_user.id == review.user_id %}
-                <p class="own_review"> You are not allowed to rate your own review! </p>
-            {% elif review.has_rated(current_user.id) %}
-                <p class="review_done">You have already rated this feedback/review </p>
-            <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
-            {% else %}
-                <p class="header">How was this review? </p>
-                <p class='review_buttons'><a class='useless' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=0) }}">useless +0</a> <a class='useful' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=1) }}">useful +1</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=2) }}" class="v_useful">very useful +2</a></p>
-            {% endif %}
-        {% endif %}
-
-            <hr>
-        {% endfor %}
-    {% else %}
+        <!-- also need to check if a rating by user already exists for the feedback -->
+        {% if current_user.id == review.user_id %}
+        <p class="own_review"> You are not allowed to rate your own review! </p>
+        {% elif review.has_rated(current_user.id) %}
+        <p class="review_done">You have already rated this feedback/review </p>
+        <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
+        {% else %}
+        <p class="header">How was this review? </p>
+        <p class='review_buttons'><a class='useless' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=0) }}">useless +0</a> <a class='useful' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=1) }}">useful +1</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=2) }}" class="v_useful">very useful +2</a></p>
+        {% endif %} {% endif %}
+        <hr> {% endfor %} {% else %}
         <p>Sorry, this book has no reviews yet</p>
-    {% endif %}
+        {% endif %}
     </div>
-
     {% if feedbackform %}
     <div class="feedbackform_container">
         <section id="banner_reviews_header" class="clearfix">
-             <header class="clearfix result">
+            <header class="clearfix result">
                 <h1 align="center">Submit a Review</h1>
             </header>
         </section>
         <form id="feedbackform" class="form form-feedback" method="POST" action="" role="form">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div class="form-group">
                 {{feedbackform.short_text(placeholder="Short text", class_="form-control")}}
             </div>
@@ -85,39 +77,40 @@
                 {{feedbackform.score(placeholder="Score", class_="form-control")}}
             </div>
             {{feedbackform.submit(placeholder="Score", class_="form-control", type="hidden", value="submit")}}
-            <p><input class="button btn-default btn-submit" type="submit" value="Submit Feedback"></p>
+            <p>
+                <input class="button btn-default btn-submit" type="submit" value="Submit Feedback">
+            </p>
         </form>
         <div role="main">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="row">
-        <div class="col-md-12">
-          {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-           {{message}}
-          </div><!-- end .alert -->
-          {% endfor %}
-        </div><!-- end col-md -->
-        </div><!-- end row -->
-          {% endif %}
-        {% endwith %}
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+            <div class="row">
+                <div class="col-md-12">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{message}}
+                    </div>
+                    <!-- end .alert -->
+                    {% endfor %}
+                </div>
+                <!-- end col-md -->
+            </div>
+            <!-- end row -->
+            {% endif %} {% endwith %}
         </div>
     </div>
     {% endif %}
-
     <script type="text/javascript">
-        var button = document.querySelector('#filterFeedback');
-        button.addEventListener("click", function() {
-            var n = document.querySelector("#nFeedback").value;
-            window.location.href = "{{url_for('book.details', isbn13=book.isbn13)}}/"+n;
-        })
+    var button = document.querySelector('#filterFeedback');
+    button.addEventListener("click", function() {
+        var n = document.querySelector("#nFeedback").value;
+        window.location.href = "{{url_for('book.details', isbn13=book.isbn13)}}/" + n;
+    })
 
-        var arr = document.URL.split('/');
-        var lastParam = arr[arr.length-1];
-        if (lastParam.length < 13) {
-            document.querySelector("#nFeedback").value = lastParam;
-        }
+    var arr = document.URL.split('/');
+    var lastParam = arr[arr.length - 1];
+    if (lastParam.length < 13) {
+        document.querySelector("#nFeedback").value = lastParam;
+    }
     </script>
 </div>
 {% endblock %}
-

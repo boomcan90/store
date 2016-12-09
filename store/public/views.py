@@ -22,4 +22,5 @@ def home(page=1):
     """Home page."""
     # Should be top grossing books.
     books = Book.query.paginate(page, 6, False)
-    return render_template('index.html', best=books, books=books)
+    best = Book.query.first()
+    return render_template('index.html', best=best, books=books)
