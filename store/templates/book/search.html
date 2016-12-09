@@ -1,3 +1,84 @@
+{% extends 'base_template.html'%}
+{% block content %}
+<section id="banner_result_header" class="clearfix">
+     <header class="clearfix result">
+     {% if result %}
+        <h1 align="center">Results</h1>
+    {% else %}
+        <h1 align="center">Search</h1>
+    </header>
+    {% endif %}
+</section>
+
+<section id="banner_result" class="clearfix">
+    <div id="banner_content_wrapper">
+        <form id="searchBookForm" class="form form-register search" method="POST" action="" role="form" autocomplete="off">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="form-group">
+                {{form.title(placeholder="Title", class_="form-control search_bar")}}
+            </div>
+            <div class="form-group">
+                {{form.author(placeholder="Author", class_="form-control search_bar")}}
+            </div>
+            <div class="form-group">
+                {{form.publisher(placeholder="Publisher", class_="form-control search_bar")}}
+            </div>
+            <div class="form-group">
+                {{form.subject(placeholder="Subject", class_="form-control search_bar")}}
+            </div>
+            <div class="form-group filterer">
+                <div class="padding_search_sort">Sort by:</div>
+                {{form.order(placeholder="Order", class_="form-control")}}
+            </div>
+            <p class="submit_container"><input class="btn btn-default btn-submit button" type="submit" value="Search"></p>
+        </form>
+        <div role="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="row">
+        <div class="col-md-12">
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+           {{message}}
+          </div><!-- end .alert -->
+          {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</section>
+
+<section id="search_results" class="clearfix">
+    <div class="wrapper">
+        {% if result %}
+            {% for book in result %}
+            <div id="banner_content_wrapper">
+                <div id="poster">
+                    <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" alt="{{book['title']}} cover art" class="featured_image">
+                </div>
+                <div id="content">
+                    <h2 class="title"><a href="{{ url_for('book.details', isbn13=book.isbn13) }}">{{book['title']}}</a></h2>
+                    <div class="ratings">
+                        <div class="star-ratings-css">
+                          <div class="star-ratings-css top" style="width: {{book['avgfb'] * 10}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                          <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        </div>
+                    </div>
+
+                    <div class="buy">
+                    <p class="info">${{book['price']}}</p><button class="snipcart-add-item button_search" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
 <h1>Search</h1>
 <form id="searchBookForm" class="form form-register" method="POST" action="" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
