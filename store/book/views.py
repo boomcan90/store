@@ -132,8 +132,11 @@ def details(isbn13=None, num_feedbacks=0):
 
     reviews = Feedback.query.filter_by(book_id=isbn13).all()
     if num_feedbacks > 0:
-        reviews = db.session.query(Feedback).join(Rates).filter(
-            Feedback.book_id == isbn13).group_by(Feedback).order_by(func.avg(Rates.rating).desc()).all()[:num_feedbacks]
+        temp_reviews = db.session.query(Feedback).join(Rates).filter(
+            Feedback.book_id == isbn13).group_by(Feedback.id).order_by(func.avg(Rates.rating).desc()).all()
+        # reviews = db.session.query(Feedback).join(Rates).filter(Feedback.book_id == isbn13).all()
+        if len(temp_reviews) > 0:
+            reviews = temp_reviews
 
     return render_template('book/book.html', book=book, reviews=reviews, feedbackform=feedbackform)
 

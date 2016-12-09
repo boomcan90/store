@@ -47,7 +47,7 @@ def rate_feedback():
             print("You already rated! This feedback!")
             return abort(404)
 
-    if rater and rating_num and feedback_id:
+    if rater and rating_num >= 0 and feedback_id:
         print(fb.id, rater, fb.user_id, rating_num)
         newrating = Rates(fb.id, rater, fb.user_id, rating_num)
         customer = Customer.query.filter_by(id=rater).first()

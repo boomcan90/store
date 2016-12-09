@@ -47,18 +47,19 @@
             </div>
         </div>
         <p class="avg_rating"><span>Average rating: {{ review.avg_rating() }}</span></p>
-            <!-- <p class="score">Score given: {{ review.score }}</p> -->
-
+        <!-- <p class="score">Score given: {{ review.score }}</p> -->
         <p class='review_details'>{{ review.short_text }}</p>
-        <!-- also need to check if a rating by user already exists for the feedback -->
-        {% if current_user.id == review.user_id %}
-            <p class="own_review"> You are not allowed to rate your own review! </p>
-        {% elif review.has_rated(current_user.id) %}
-            <p class="review_done">You have already rated this feedback/review </p>
-        <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
-        {% else %}
-            <p class="header">How was this review? </p>
-            <p class='review_buttons'><a class='useless' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=0) }}">useless +0</a> <a class='useful' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=1) }}">useful +1</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=2) }}" class="v_useful">very useful +2</a></p>
+        {% if current_user.is_authenticated %}
+            <!-- also need to check if a rating by user already exists for the feedback -->
+            {% if current_user.id == review.user_id %}
+                <p class="own_review"> You are not allowed to rate your own review! </p>
+            {% elif review.has_rated(current_user.id) %}
+                <p class="review_done">You have already rated this feedback/review </p>
+            <!-- http://localhost:5000/feedback/rate?feedback_id=6&rating=2 -->
+            {% else %}
+                <p class="header">How was this review? </p>
+                <p class='review_buttons'><a class='useless' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=0) }}">useless +0</a> <a class='useful' href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=1) }}">useful +1</a> <a href="{{ url_for('feedback.rate_feedback', feedback_id=review.id, rating=2) }}" class="v_useful">very useful +2</a></p>
+            {% endif %}
         {% endif %}
 
             <hr>
