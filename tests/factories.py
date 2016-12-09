@@ -73,9 +73,7 @@ class BookFactory(BaseFactory):
 
 class OrderFactory(BaseFactory):
     """So you want to order a book."""
-
-    order_id = Sequence(lambda n: 'order{0}'.format(n))
-    # what is customer id here? there is a reference....?
+    id = Sequence(lambda n: 'order{0}'.format(n))
     customer_id = Sequence(lambda n: 'customer{0}'.format(n))
 
     class Meta:

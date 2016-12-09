@@ -26,7 +26,7 @@ class Order(Model):
 
     __tablename__ = 'orders'
 
-    order_id = Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     customer_id = Column(db.String(80), db.ForeignKey('user.id'))
     customer = db.relationship(Customer, backref="orders")
 
@@ -38,23 +38,23 @@ class Order(Model):
     qty = Column(db.Integer, default=1)
     status = Column(db.Boolean(), default=True)
 
-    def __init__(self, order_id, customer_id, **kwargs):
+    def __init__(self, customer_id, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, order_id=order_id, customer_id=customer_id, **kwargs)
+        db.Model.__init__(self, customer_id=customer_id, **kwargs)
 
     @property
     def details(self):
         """Order and customer details."""
-        return '{0} {1}'.format(self.order_id, self.customer_id)
+        return '{0} {1}'.format(self.id, self.customer_id)
 
     @classmethod
-    def get_by_id(cls, order_id):
+    def get_by_id(cls, id):
         """Get order by ID."""
         if any(
-                (isinstance(order_id, basestring),
-                 isinstance(order_id, str)),
+                (isinstance(id, basestring),
+                 isinstance(id, str)),
         ):
-            return cls.query.get(str(order_id))
+            return cls.query.get(str(id))
         return None
 
     # def get_customer_history(cls, customer_id):
@@ -67,11 +67,11 @@ class Order(Model):
 
     def __repr__(self):
         """Represent instance as a unique string."""
-        return '<Order({order_id!r})>'.format(order_id=self.order_id)
+        return '<Order({id!r})>'.format(id=self.id)
 
     def to_json(self):
         """More json."""
-        return dict(id=self.order_id, customer=self.customer_id, status=self.status)
+        return dict(id=self.id, customer=self.customer_id, status=self.status)
 
 # -------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ class OrderConsistsOf(Model):
     __tablename__ = 'consists_of'
 
     # use ForeignKey here
-    consists_order_id = Column(db.String(80), db.ForeignKey('orders.order_id'), primary_key=True)
+    consists_order_id = Column(db.Integer, db.ForeignKey('orders.id'), primary_key=True)
     consists_isbn13 = Column(db.String(13), db.ForeignKey('book.isbn13'), primary_key=True)
     # Non foreign key
     consists_qty = Column(db.Integer, default=1)
@@ -121,6 +121,7 @@ class OrderConsistsOf(Model):
                  isinstance(tuplething[0], str) and isinstance(tuplething[1], str)),
         ):
             return cls.query.get(tuplething)
+        
         return None
 
     def to_json(self):
