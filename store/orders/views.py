@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 """Order views."""
 
-from flask import Blueprint, render_template, jsonify, abort # noqa
-from flask_login import current_user
-from .models import Order, OrderConsistsOf
+from flask import Blueprint, flash, redirect, render_template, request, url_for, abort, jsonify
+from flask_login import current_user, login_required  # noqa
+
+from store.orders.models import Order, OrderConsistsOf
+from store.orders.forms import AddOrderForm
+
+from store.utils import flash_errors
+from store.database import db
+from sqlalchemy import func
+
+
 
 order_blueprint = Blueprint(
     'orders', __name__, url_prefix='/orders', static_folder='../static')
@@ -36,18 +44,44 @@ def browse_list():
     result = Order.query.all()
     return jsonify(data=[x.to_json() for x in result])
 
+@order_blueprint.route('/orderBook/<customerid>/<isbn13>', methods=['GET', 'POST'])
+def order_book(isbn13, customerid):
+    form = AddOrderForm(request.form)
+    if request.method == 'POST':
+        order = Order.create(customer_id=customerid)
+        flash('You, {}, have ordered a book!'.format(
+               customerid), 'success')
+        # order = Order.query.filter_by(customer_id=customerid)
+        # order = order.first()
+        OrderConsistsOf.create(consists_order_id=order.id, 
+                               consists_isbn13=isbn13, consists_qty=form.qty.data)
+        flash('You have ordered the book: {}!'.format(
+                isbn13), 'success')
+        return "Good job!"
+    else:
+        flash_errors(form)
+    return render_template('orders/addorder.html', form=form)
 
 # Order history for the customer
-@order_blueprint.route('/orderHistory/', methods=['GET'])
-def order_history():
+@order_blueprint.route('/orderHistory/<id>', methods=['GET'])
+def order_history(id):
     """Order history."""
-    if current_user.is_authenticated:
-        id = current_user.get_id()
-        # now, to return order history of the user- returns isbn13 of book that customer has ordered
-        q = OrderConsistsOf.query.join(Order, (OrderConsistsOf.consists_order_id == Order.order_id)).\
+    q = OrderConsistsOf.query.join(Order, (OrderConsistsOf.consists_order_id == Order.id)).\
             filter(Order.customer_id == id).all()
 
-        return jsonify(data=[x.to_json() for x in q])
+    return jsonify(data=[x.to_json() for x in q])
+
+# @order_blueprint.route('/recommend/<isbn13>', methods=['GET'])
+# def reccomendation(isbn13):
+#     """Get book recommendation"""
+#     if current_user.is_authenticated:
+#         id = current_user.get_id()
+#         # get the book rec
+#         q1 = OrderConsistsOf.query.filter(OrderConsistsOf.consists_isbn13).all()
+
+#         list_of_orderid = [x.to_json() for x in result]
+
+#         for element in list
 
 # ---------------------------------------------------------------------------
 

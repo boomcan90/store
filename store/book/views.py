@@ -10,6 +10,8 @@ from store.customer.models import Customer
 from store.feedback.models import Feedback, Rates
 from store.feedback.forms import FeedbackForm
 
+from flask_login import current_user
+
 from store.utils import flash_errors
 from store.database import db
 from sqlalchemy import func, and_, desc
@@ -94,7 +96,6 @@ def browse():
     book = Book.query.all()
 
     return render_template('book/browse.html', books=book)
-
 
 @book_blueprint.route('/details/<isbn13>', methods=['GET', 'POST'])
 @book_blueprint.route('/details/<isbn13>/<int:num_feedbacks>', methods=['GET', 'POST'])

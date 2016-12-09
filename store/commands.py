@@ -135,7 +135,7 @@ def seed():
     from store.dummy_data import books
     from store.dummy_data import customers
     from store.dummy_data import orders
-    from store.dummy_data import order_consists_of
+    # from store.dummy_data import order_consists_of
     from store.dummy_data import feedback
 
     db.drop_all()
@@ -150,12 +150,12 @@ def seed():
         db.session.add(customer)
 
     for order in orders.sample_list:
-        print("Adding order: {}".format(order.order_id))
+        print("Adding order: {}".format(order.id))
         db.session.add(order)
 
-    for oco in order_consists_of.sample_list:
-        print("Adding order/book relation: {}".format(oco.consists_order_id))
-        db.session.add(oco)
+    # for oco in order_consists_of.sample_list:
+        # print("Adding order/book relation: {}".format(oco.consists_order_id))
+        # db.session.add(oco)
 
     for fb in feedback.sample_list:
         print("Feedback: {}".format(fb.user_id))

@@ -79,5 +79,5 @@ def consistsof(db):
     """ Some orders_consistsof for the tests."""
     consistsof = ConsistsOfFactory()
     db.session.commit()
-    return order
+    return consistsof
 
