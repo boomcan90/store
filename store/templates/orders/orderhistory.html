@@ -1,0 +1,28 @@
+{%extends "base_template.html"%}
+
+{%block content%}
+        <h2>Order history:</h2>
+        {% if historicalorders %}
+        <div id="banner_content_wrapper">
+            {% for order in historicalorders %}
+            <div class="member_info">
+                customer_id: {{order.customer_id}} <br>
+                date: {{order.date}} <br>
+                status: {{order.status}} <br>
+                quantity: {{order.qty}} <br>
+                {% if order.main_order %}
+                    {% for consistsof in order.main_order %}
+                        {% if consistsof.book %}
+                            {{ consistsof.book.isbn13 }} <br>
+                            {{ consistsof.book.title }} <br>
+                            {{ consistsof.book.author }} <br>
+                        {% endif %}
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        {% endif %}
+{%endblock%}

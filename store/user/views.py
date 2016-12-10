@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 """User views."""
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
@@ -11,6 +11,7 @@ from store.utils import flash_errors
 
 from store.utils import manager_only
 
+from .models import User
 
 blueprint = Blueprint('user', __name__, url_prefix='/user',
                       static_folder='../static')
@@ -22,7 +23,7 @@ def members():
     """
     - the list of the m most popular books (in terms of copies sold in this month)
     - the list of m most popular authors
-    - the list of m most popular publishers 
+    - the list of m most popular publishers
     """
     return render_template('user/members.html')
 

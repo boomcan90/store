@@ -3,6 +3,7 @@
 {%block content%}
     <section id="banner" class="clearfix">
         <h2>Users who bought this also purchased:</h2>
+        {% if recommendations %}
         <div id="banner_content_wrapper">
             {% for book in recommendations %}
             <div class='member_headers'>
@@ -28,5 +29,6 @@
             </div>
             {% endfor %}
         </div>
+        {% endif %}
     </section>
 {%endblock%}

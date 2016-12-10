@@ -149,9 +149,9 @@ def seed():
         print("Adding customer: {}".format(customer.id))
         db.session.add(customer)
 
-    for order in orders.sample_list:
-        print("Adding order: {}".format(order.id))
-        db.session.add(order)
+    # for order in orders.sample_list:
+    #     print("Adding order: {}".format(order.customer_id))
+    #     db.session.add(order)
 
     # for oco in order_consists_of.sample_list:
         # print("Adding order/book relation: {}".format(oco.consists_order_id))

@@ -11,6 +11,24 @@
         <p><input class="btn btn-default btn-submit" type="submit" value="Add"></p>
 </form>
 
+{% if recommendations %}
+<h2>Recommendations</h2>
+
+<div>
+  {% for book in recommendations %}
+      {{book.title}} <br>
+      {{book.author}} <br>
+      {{book.isbn13}} <br>
+      {{book.format}} <br>
+      {{book.subject}} <br>
+      {{book.year_of_pub}} <br>
+      {{book.publisher}} <br>
+      {{book.price}} <br>
+  {% endfor %}
+</div>
+{% endif %}
+
+
 
 <div role="main">
 {% with messages = get_flashed_messages(with_categories=true) %}
