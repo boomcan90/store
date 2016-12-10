@@ -1,0 +1,19 @@
+{%extends "base_template.html"%}
+
+{%block content%}
+
+    <section id="" class="clearfix">
+        <div id="">
+            {% if popular_publishers %}
+            <h1>Statistics</h1>
+            <div>
+                {% for publisher in popular_publishers %}
+                    <p>PUBLISHER: {{ publisher[0] }}, COPIES SOLD: {{ publisher[1] }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+
+{%endblock%}

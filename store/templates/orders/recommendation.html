@@ -1,0 +1,32 @@
+{%extends "base_template.html"%}
+
+{%block content%}
+    <section id="banner" class="clearfix">
+        <h2>Users who bought this also purchased:</h2>
+        <div id="banner_content_wrapper">
+            {% for book in recommendations %}
+            <div class='member_headers'>
+                Book Title: <br>
+                Author: <br>
+                ISBN13: <br>
+                Format: <br>
+                Genre: <br>
+                Year of Publication: <br>
+                Publisher: <br>
+                Price: <br>
+            </div>
+            <div class="member_info">
+                {{book.title}} <br>
+                {{book.author}} <br>
+                {{book.isbn13}} <br>
+                {{book.format}} <br>
+                {{book.subject}} <br>
+                {{book.year_of_pub}} <br>
+                {{book.publisher}} <br>
+                {{book.price}} <br>
+
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{%endblock%}
