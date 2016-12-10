@@ -1,1 +1,47 @@
-members.html
+{%extends "base_template.html"%}
+
+{%block content%}
+    <section id="banner" class="clearfix">
+        <div id="banner_content_wrapper">
+            <div class='member_headers'>
+                Username: <br>
+                Email ID: <br>
+                Credit Card Number: <br>
+                Phone Number: <br>
+            </div>
+            <div class="member_info">
+                {{current_user.id}} <br>
+                {{current_user.email}} <br>
+                {{current_user.m_credit_no}} <br>
+                {{current_user.phone_no}} <br>
+            </div>
+        </div>
+    </section>
+
+    <section id="" class="clearfix">
+        <div id="">
+            <h1>Add Book</h1>   
+            <div class='add_book'>
+                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/book/add';" value="Add Book"/>
+            </div>
+            <div id=""> 
+                <h2> Update book </h2> 
+                <div class="update_book">
+                    <!-- NEED TO CREATE INPUT FIELD FOR ISBN HERE, AND UPDATE ONCLICK-->
+                    <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/book/update/ISBN13';" value="Update Book"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="" class="clearfix">
+        <div id="">
+            <h2>STATISTICS</h2>
+            <div>
+                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_books';" value="Popular Books"/>
+                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_authors';" value="Popular Authors"/>
+                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_publishers';" value="Popular Publishers"/>
+            </div>
+        </div>
+    </section>
+{%endblock%}
