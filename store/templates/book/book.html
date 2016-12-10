@@ -13,13 +13,13 @@
                     <div class="star-ratings-css bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                 </div>
             </div>
+                <p class="info"> {{book['author']}} | {{book['publisher']}}</p>
 
-            <p class="info"> {{book['author']}} | {{book['publisher']}}</p>
-            <div class="buy">
+                <div class="buy">
                     <p class="info">${{book.price}}</p>
 
                     <input type='button' class="snipcart-add-item button" data-item-id = "2" data-item-price = "{{book['price']}}" data-item-name="{{book.title}}" type="submit" onclick="document.location.href='/orders/orderBook/{{ book.isbn13 }}';" value="Buy Now"/>
-            </div>
+                </div>
         </div>
         {% endif %}
     </div>
