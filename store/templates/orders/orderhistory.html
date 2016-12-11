@@ -1,28 +1,50 @@
 {%extends "base_template.html"%}
-
 {%block content%}
-        <h2>Order history:</h2>
+    <section id="banner_result_header" class="clearfix">
+         <header class="clearfix result">
+            <h1 align="center">Order History</h1>
+        </header>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script>
+        function getTime() {
+            var a = $(".order_time");
+            $.each(a, function() {
+                var time = $(this).html();
+                var time_out = moment(time, "YYYY-MM-DD HH:mm:ss");
+                $(this).empty().append(time_out.format("dddd, MMMM Do YYYY, h:mm:ss a"));
+                console.log(time_out.format("dddd, MMMM Do YYYY, h:mm:ss a"));
+            });
+        };
+
+        $(document).ready(function(){
+            getTime();
+        });
+    </script>
+    <section id="members_order_history">
         {% if historicalorders %}
+        <h2>Order history for {{id}}</h2>
         <div id="banner_content_wrapper">
             {% for order in historicalorders %}
             <div class="member_info">
-                customer_id: {{order.customer_id}} <br>
-                date: {{order.date}} <br>
-                status: {{order.status}} <br>
-                quantity: {{order.qty}} <br>
-                {% if order.main_order %}
-                    {% for consistsof in order.main_order %}
-                        {% if consistsof.book %}
-                            {{ consistsof.book.isbn13 }} <br>
-                            {{ consistsof.book.title }} <br>
-                            {{ consistsof.book.author }} <br>
-                        {% endif %}
-                    {% endfor %}
-
-                {% endif %}
+                <table>
+                    <tr><td>Date</td><td class="order_time">{{order.date}}</td></tr>
+                    <tr><td>Status</td><td>{{order.status}}</td></tr>
+                    <tr><td>Quantitiy</td><td>{{order.qty}}</td></tr>
+                    {% if order.main_order %}
+                        {% for consistsof in order.main_order %}
+                            {% if consistsof.book %}
+                                <tr><td>Book ISBN</td><td>{{ consistsof.book.isbn13 }}</td></tr>
+                                <tr><td>Book Title</td><td>{{ consistsof.book.title }}</td></tr>
+                                <tr><td>Book Author</td><td>{{ consistsof.book.author }}</td></tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </table>
             </div>
             <hr>
             {% endfor %}
         </div>
         {% endif %}
+    </section>
 {%endblock%}

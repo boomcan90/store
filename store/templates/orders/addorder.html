@@ -1,50 +1,42 @@
 {% extends "base_template.html"%}
 {% block content %}
 
-<h1>New Order</h1>
-<br/>
-<form id="addOrderForm" class="form form-register" method="POST" action="" role="form">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <div class="form-group">
-            {{form.qty(placeholder="QTY_OF_BOOK", class_="form-control")}}
-        </div>
-        <p><input class="btn btn-default btn-submit" type="submit" value="Add"></p>
-</form>
+<section id="banner_result_header" class="clearfix">
+     <header class="clearfix result">
+        <h1 align="center">New Order</h1>
+    </header>
+</section>
+
+<section id="banner_result" class="clearfix">
+    <div id="banner_content_wrapper">
+        <form id="addOrderForm" class="form form-register" method="POST" action="" role="form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <div class="form-group">
+              {{form.qty(placeholder="Quantity of Order", class_="form-control search_bar")}}
+          </div>
+          <p class="submit_container"><input class="btn btn-default btn-submit button" type="submit" value="Order"></p>
+      </form>
+    </div>
+</section>
+
 
 {% if recommendations %}
-<h2>Recommendations</h2>
+<section id="top_books" class="clearfix">
+    <div class="wrapper">
+      <header class="clearfix">
+        <h2>People who bought this also bought:</h2>
+      </header>
 
-<div>
-  {% for book in recommendations %}
-      {{book.title}} <br>
-      {{book.author}} <br>
-      {{book.isbn13}} <br>
-      {{book.format}} <br>
-      {{book.subject}} <br>
-      {{book.year_of_pub}} <br>
-      {{book.publisher}} <br>
-      {{book.price}} <br>
-  {% endfor %}
-</div>
+      <div class="row clearfix">
+        {% for book in recommendations %}
+          {% if loop.index <=6 %}
+          <div class="post">
+            <img src="{{url_for('static', filename='images/books/')}}{{ book.isbn13 }}.jpg" alt="{{book.title}}">
+            <h3 class="title"><a href="{{url_for('book.details', isbn13=book['isbn13'])}}">{{ book.title }} </a></h3>
+            <p class="post_info">{{ "${:.2f}".format(book.price) }}</p>
+          </div>
+          {% endif %}
+        {% endfor %}
+  </section>
 {% endif %}
-
-
-
-<div role="main">
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-<div class="row">
-<div class="col-md-12">
-  {% for category, message in messages %}
-  <div class="alert alert-{{ category }}">
-    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-   {{message}}
-  </div><!-- end .alert -->
-  {% endfor %}
-</div><!-- end col-md -->
-</div><!-- end row -->
-  {% endif %}
-{% endwith %}
-</div>
-
 {% endblock %}

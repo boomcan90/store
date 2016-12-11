@@ -40,7 +40,11 @@ h1, h2, h3, h4, h5, h6 {
 		float: left;
 		text-transform: uppercase;
 		font-size: 1.15em;
-		font-weight: 300;
+		font-weight: 700;
+		a {
+			color: $main;
+			text-decoration: none;
+		}
 		span {
 			font-weight: 300;
 			color: $highlight;
@@ -63,6 +67,91 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
+.stuff_for_errors, .admin_login_link {
+	width: 25em;
+	margin-top: 3em;
+	margin-left: 1.25em;
+	.alert{
+		.warning {
+			color: $alert;
+		}
+		.info {
+			color: $yellow;
+		}
+
+		.success {
+			color: $highlight;
+		}
+	}
+}
+
+.admin_login_link {
+	color: $white;
+	a {
+		text-decoration: none;
+		color: $highlight;
+	}
+}
+
+
+#admin, #members_order_history {
+	em {
+		font-weight: 700;
+		// font-size: 2.5em;
+	}
+	display: block;
+	input{
+		width: 100%;
+		margin: .25em 0;
+		padding: 1em;
+		border-radius: 2em;
+		background: $white;
+		border: 2px $secondary solid;
+		color: $secondary;
+	}
+	a {
+		text-decoration: none;
+		text-align: center;
+		display: block;
+		border: 2px $highlight solid;
+		outline: none;
+		width: 100%;
+		padding: 1em 0;
+		border-radius: 2em;
+		background: $white;
+		font-weight: 300 !important;
+		color: $secondary !important;
+		font-weight: 700;
+		font-size: .9em;
+		margin: 1em 0;
+		-webkit-transition: background $time linear;
+		-moz-transition: background $time linear;
+		-ms-transition: background $time linear;
+		-o-transition: background $time linear;
+		transition: background $time linear;
+		&:hover {
+			background: $highlight;
+			color:$white !important;
+		}
+	}
+	.pop_link {
+		display: inline-block;
+		margin: 0 1.5% 1em 1.5%;
+		width: 30%;
+	}
+
+	table {
+		margin: 0 auto;
+		width: 100%;
+		thead {
+			font-weight: 700;
+
+			td {
+				padding-bottom: 0.75em;
+			}
+		}
+	}
+}
 #banner_result {
 	background: $white;
 	width: 100%;
@@ -128,7 +217,6 @@ h1, h2, h3, h4, h5, h6 {
 
 			}
 		}
-
 	}
 }
 
@@ -180,6 +268,8 @@ h1, h2, h3, h4, h5, h6 {
 		.member_info {
 			color: $white;
 		}
+
+
 
 	}
 	#poster {
@@ -312,7 +402,7 @@ h1, h2, h3, h4, h5, h6 {
 		}
 }
 
-#members_reviews_given, #members_ratings_given {
+#members_reviews_given, #members_ratings_given, #admin, #members_order_history {
 	margin: 0 auto;
 	background: $white;
 	width: 900px;
@@ -733,14 +823,6 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-.stuff_for_errors {
-	width: 25em;
-	margin-top: 3em;
-	.warning {
-		color: $alert;
-		margin-left: 1.25em;
-	}
-}
 #newsletter {
 	padding: 5em 0;
 	text-align: center;
@@ -809,7 +891,7 @@ h1, h2, h3, h4, h5, h6 {
 		margin: 0;
 	}
 	.links {
-		display: inline;
+		display: inline ;
 		a {
 			color: $secondary;
 			font-size: .75em;
@@ -955,6 +1037,7 @@ h1, h2, h3, h4, h5, h6 {
 		}
 	}
 }
+
 
 .snip-layout__main-container {
 	#snipcart-close.snip-layout__close {

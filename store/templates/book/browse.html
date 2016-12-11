@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="buy">
-                    <p class="info">${{book['price']}}</p><button class="snipcart-add-item button_search" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com" onclick="document.location.href='/orders/orderBook/{{ book.isbn13 }}';"> Buy now</button>
+                    <p class="info">${{book['price']}}</p><a class="button_search" href="{{url_for('orders.order_book', isbn13=book.isbn13)}}"> Buy now</a>
                     </div>
 
                 </div>

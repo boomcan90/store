@@ -7,25 +7,21 @@
           <form id="loginForm" method="POST" class="navbar-form form-inline navbar-right" action="" role="login">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="form-group">
-              {{ form.username(placeholder="Username", class_="form-control") }}
+              {{ form.username(placeholder="Username", class_="form-control") }} <br>
               {{ form.password(placeholder="Password", class_="form-control") }}
             </div>
-            <button type="submit" class="button">Log in</button>
+            <input type="submit" class="button" value="Log in"></button>
           </form>
 
-          <div role="main">
+          <div role="main" class='stuff_for_errors'>
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
-          <div class="row">
-            <div class="col-md-12">
               {% for category, message in messages %}
               <div class="alert alert-{{ category }}">
-                <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-               {{message}}
+                <!-- <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a> -->
+               <label class="{{category}}">{{message}}</label>
               </div><!-- end .alert -->
               {% endfor %}
-            </div><!-- end col-md -->
-          </div><!-- end row -->
               {% endif %}
           {% endwith %}
           </div>

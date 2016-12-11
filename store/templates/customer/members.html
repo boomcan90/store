@@ -33,8 +33,6 @@
                 <hr>
                 {% endfor %}
                 {% endif %}
-
-
     </section>
 
     <section id="members_ratings_given" class="clearfix">
@@ -55,12 +53,11 @@
             {% endif %}
     </section>
 
-    <section id="" class="clearfix">
-        <div id="">
-            <h2>Order history</h2>
-            <div>
-                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/orderHistory/{{ current_user.id }}';" value="Click Here"/>
-            </div>
+    <section id="members_order_history" class="clearfix">
+        <h2>Order history</h2>
+        <div id="content">
+            <a href="{{url_for('orders.order_history', id=current_user.id )}}">Click here to view order history</a>
+            <!-- <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/orderHistory/{{ current_user.id }}';" value="Click Here"/> -->
         </div>
     </section>
 {%endblock%}

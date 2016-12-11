@@ -19,7 +19,7 @@
 
 				<!-- <p class="info"> SOLD OUT </p> -->
 				<div class="buy">
-				<p class="info">${{best['price']}}</p><button class="snipcart-add-item button" data-item-id = "2" data-item-price = "10.00" data-item-name="The Godfather" data-item-url="http://www.booksrus.com"> Buy now</button>
+				<p class="info">${{best['price']}}</p><a class="button" href="{{url_for('orders.order_book', isbn13=best.isbn13)}}" style="text-decoration: none;"> Buy now</a>
 				</div>
 				{% endif %}
 
@@ -51,45 +51,6 @@
 					<p class="post_info">{{ "${:.2f}".format(book.price) }}</p>
 				</div>
 				{% endfor %}
-
-<!-- 				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP1.jpg" alt="HP1">
-					<h3 class="title">HP1</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-
-				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP2.jpg" alt="HP2">
-					<h3 class="title">HP2</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-
-				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP3.jpg" alt="HP3">
-					<h3 class="title">HP3</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-
-				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP4.jpg" alt="HP4">
-					<h3 class="title">HP4</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-
-				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP5.jpg" alt="HP5">
-					<h3 class="title">HP5</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-
-				<div class="post">
-					<img src="{{url_for('static', filename='images/books/')}}HP6.jpg" alt="HP6">
-					<h3 class="title">HP6</h3>
-					<p class="post_info">$12.34</p>
-				</div>
-			</div>
-		</div> -->
-	<!-- book nav -->
 	</section>
 
 	<section id="newsletter">

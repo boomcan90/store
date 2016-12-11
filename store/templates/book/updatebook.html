@@ -41,22 +41,19 @@
             {{form.subject(placeholder="Subject", class_="form-control search_bar")}}
         </div>
         <p class="submit_container"><input class="btn button btn-default btn-submit" type="submit" value="Update"></p>
+        <div role="main" class='stuff_for_errors'>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <!-- <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a> -->
+             <label class="{{category}}">{{message}}</label>
+            </div><!-- end .alert -->
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
         </form>
-                <div role="main">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                <div class="row">
-                <div class="col-md-12">
-                  {% for category, message in messages %}
-                  <div class="alert alert-{{ category }}">
-                    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-                   {{message}}
-                  </div><!-- end .alert -->
-                  {% endfor %}
-                </div>
-                </div>
-                {% endif %}
-                {% endwith %}
-            </div>
         </section>
         {% endblock %}
