@@ -13,6 +13,10 @@
             <input type="submit" class="button" value="Log in"></button>
           </form>
 
+          <div class="admin_login_link">
+            Are you an admin? <a href="{{url_for('user.login')}}">Click here</a> to login!
+          </div>
+
           <div role="main" class='stuff_for_errors'>
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}

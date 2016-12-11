@@ -1,17 +1,30 @@
 {%extends "base_template.html"%}
-
 {%block content%}
-    <section id="" class="clearfix">
-        <div id="">
-            {% if popular_authors %}
-            <h1>Statistics</h1>
-            <div>
-                {% for author in popular_authors %}
-                    <p>AUTHOR: {{ author[0] }}, COPIES SOLD: {{ author[1] }}</p>
-                {% endfor %}
+
+    <section id="banner_result_header" class="clearfix">
+         <header class="clearfix result">
+            <h1 align="center">Popular Authors</h1>
+        </header>
+    </section>
+
+    <section id="admin" class="clearfix">
+            {% if popular_authors%}
+            <h2>Popular Authors </h2>
+            <div id="content">
+                <table>
+                    <thead>
+                        <tr><td>Author</td><td>Number of copies sold</td></tr>
+                    </thead>
+                    {% for author in popular_authors %}
+                    <tr><td>{{author[0]}}</td><td>{{author[1]}}</td></tr>
+                    {% endfor %}
+                </table>
             </div>
+            <hr>
+            {% else %}
+            <h2 align="center">Sorry, no information is available<em>.</em></h2>
             {% endif %}
-        </div>
+
     </section>
 
 

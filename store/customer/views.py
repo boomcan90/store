@@ -25,7 +25,7 @@ customer_blueprint = Blueprint(
 @login_required
 def members():
     """Customer Index Route."""
-    ratings = Rates.query.filter_by(rater_id=current_user.id).order_by(Rates.rating.desc())
+    ratings = Rates.query.filter_by(rater_id=current_user.id).order_by(Rates.rating.desc()).all()
     return render_template("customer/members.html", ratings=ratings)
 
 @customer_blueprint.route('/login', methods=['GET', 'POST'])

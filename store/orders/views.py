@@ -141,7 +141,7 @@ def order_history(id):
     #     Order.customer_id == id).all()
 
     q = Order.query.join(Customer, OrderConsistsOf).filter(Customer.id == id).order_by(Order.date.desc()).all()
-    return render_template('orders/orderhistory.html', historicalorders=q)
+    return render_template('orders/orderhistory.html', historicalorders=q, id=id)
 
 
 @order_blueprint.route('/recommendation/<isbn13>', methods=['GET'])

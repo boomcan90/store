@@ -2,7 +2,7 @@
 <html>
 <head>
     {% block head %}
-    <title>Books`R`Us | Team Ruobin</title>
+    <title>Books`R`Us</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -10,22 +10,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
-    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MjQzODllNjUtMzlkNy00YzgxLTk4YjgtOWU1NzJkYWFmNmJkNjM2MTQ5NTYzODUwODQyNjEx" data-autopop="false"></script>
-    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
     {% endblock %}
 </head>
 <body>
     {% block header %}
     <header id="top_header" class="clearfix">
         <div class="wrapper">
-            <h1 class="logo">Books<span>`R`</span>Us</h1>
+
+            <h1 class="logo"><a href="{{url_for('public.home')}}">Books<span>`R`</span>Us</a></h1>
 
             <a href="#" class="menu"><i class="fa fa-bars"></i></a>
             <div class="snipcart-summary">
                 <nav id="main_nav">
                     <a href="{{ url_for('public.home') }}">Home</a>
                     {% if current_user.is_authenticated %}
-                    <p>Hi, {{ current_user.name }} <a href="{{ url_for('customer.members') }}">{{current_user.id}}!</a> </p><p>|</p>
+                    <p>Hi, {%if current_user.user_type == 'manager'%}
+                    <a href="{{ url_for('user.members') }}">
+                    {%else%}
+                    <a href="{{ url_for('customer.members')}}">
+                    {%endif%}
+                    {{current_user.id}}!</a> </p><p>|</p>
                     <a href="{{ url_for('customer.logout') }}">Logout</a>
                     {% else %}
                     <a href="{{ url_for('customer.login') }}">Login</a>
@@ -33,7 +37,6 @@
                     {% endif %}
                     <a href="{{ url_for('book.browse') }}">Browse</a>
                     <a href="{{ url_for('book.search') }}">Search</a>
-                    <a href="#" class='snipcart-checkout'>Cart (<span class="snipcart-total-price"></span>)</a>
                 </nav>
             </div>
         </div>

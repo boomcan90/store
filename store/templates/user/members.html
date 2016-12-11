@@ -6,43 +6,49 @@
             <div class='member_headers'>
                 Username: <br>
                 Email ID: <br>
-                Credit Card Number: <br>
-                Phone Number: <br>
             </div>
             <div class="member_info">
                 {{current_user.id}} <br>
                 {{current_user.email}} <br>
-                {{current_user.m_credit_no}} <br>
-                {{current_user.phone_no}} <br>
             </div>
         </div>
     </section>
 
-    <section id="" class="clearfix">
-        <div id="">
-            <h1>Add Book</h1>
-            <div class='add_book'>
-                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/book/add';" value="Add Book"/>
+
+    <section id="admin" class="clearfix">
+            <h2>Add Book </h2>
+            <div id="content">
+                <a href="{{url_for('book.add_book')}}"> Add Book</a>
             </div>
-            <div id="">
-                <h2> Update book </h2>
-                <div class="update_book">
-                    <!-- NEED TO CREATE INPUT FIELD FOR ISBN HERE, AND UPDATE ONCLICK-->
-                    <input type="text" placeholder="ISBN13 (Needs Javascript)" />
-                    <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/book/update/ISBN13';" value="Update Book"/>
-                </div>
-            </div>
-        </div>
+            <hr>
     </section>
 
-    <section id="" class="clearfix">
-        <div id="">
-            <h2>STATISTICS</h2>
-            <div>
-                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_books';" value="Popular Books"/>
-                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_authors';" value="Popular Authors"/>
-                <input type='button' class="snipcart-add-item button" type="submit" onclick="document.location.href='/orders/popular_publishers';" value="Popular Publishers"/>
+    <section id="admin" class="clearfix">
+            <h2>Update Book </h2>
+            <div id="content">
+                <input type="text" placeholder="ISBN13" class="isbn13"/>
+                <a href="" class=' update'> Update Book</a>
             </div>
-        </div>
+            <hr>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            $(".isbn13").change(function() {
+                var new_url = "/book/update/" + $(".isbn13").val();
+                $('.update').attr('href', new_url);
+            });
+        });
+    </script>
+
+    <section id="admin" class="clearfix">
+            <h2>Statistics</h2>
+            <div id="content">
+                <a href="{{url_for('orders.pop_books')}}" class="pop_link">Popular Books</a>
+                <a href="{{url_for('orders.pop_authors')}}" class="pop_link">Popular Authors</a>
+                <a href="{{url_for('orders.pop_publishers')}}" class="pop_link">Popular Publishers</a>
+            </div>
+            <hr>
+    </section>
+
 {%endblock%}
