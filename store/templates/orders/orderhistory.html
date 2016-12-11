@@ -30,9 +30,9 @@
                 <table>
                     <tr><td>Date</td><td class="order_time">{{order.date}}</td></tr>
                     <tr><td>Status</td><td>{{order.status}}</td></tr>
-                    <tr><td>Quantitiy</td><td>{{order.qty}}</td></tr>
                     {% if order.main_order %}
                         {% for consistsof in order.main_order %}
+                                <tr><td>Quantity</td><td>{{ consistsof.consists_qty }}</td></tr>
                             {% if consistsof.book %}
                                 <tr><td>Book ISBN</td><td>{{ consistsof.book.isbn13 }}</td></tr>
                                 <tr><td>Book Title</td><td>{{ consistsof.book.title }}</td></tr>
