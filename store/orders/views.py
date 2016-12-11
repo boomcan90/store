@@ -97,6 +97,33 @@ def pop_publishers():
 @order_blueprint.route('/orderBook/<isbn13>', methods=['GET', 'POST'])
 @login_required
 def order_book(isbn13):
+    RECOMMENDATIONS = []
+    """Get book recommendation."""
+
+    id = current_user.get_id()
+    # get the book rec
+    q1 = db.session.query(OrderConsistsOf.consists_order_id).filter(OrderConsistsOf.consists_isbn13 == isbn13).all()
+    print(q1)
+
+    q2 = []
+    for q0 in q1:
+        # Get order instance
+        order = db.session.query(Order).filter(Order.id == q0[0]).first()
+        # Find all other orders customer has made
+        temp = db.session.query(Order.id).filter(Order.customer_id == order.customer_id).filter(Order.id != id).all()
+        print(temp)
+        q2.extend(temp)
+    print("q2: " + str(q2) + ", q2[0]: " + str(q2[0]))
+    # [(1,), (5,)]
+    for q in q2:
+        isbn13_list = db.session.query(OrderConsistsOf.consists_isbn13).filter(OrderConsistsOf.consists_order_id == q[0]).\
+            filter(OrderConsistsOf.consists_isbn13 != isbn13).all()
+        print('isbn13: ', str(isbn13_list))
+        if isbn13_list != []:
+            for i in isbn13_list:
+                RECOMMENDATIONS.append(db.session.query(
+                    Book).filter(Book.isbn13 == i[0]).first())
+    print(RECOMMENDATIONS)
     customerid = current_user.get_id()
     form = AddOrderForm(request.form)
     if request.method == 'POST':
@@ -113,21 +140,6 @@ def order_book(isbn13):
     else:
         flash_errors(form)
 
-    RECOMMENDATIONS = []
-    """Get book recommendation."""
-    if current_user.is_authenticated:
-        id = current_user.get_id()
-        # get the book rec
-        q1 = db.session.query(OrderConsistsOf.consists_order_id).filter(OrderConsistsOf.consists_isbn13 == isbn13).\
-            filter(OrderConsistsOf.consists_order_id != id).all()
-
-        for q in q1:
-            isbn13_list = db.session.query(OrderConsistsOf.consists_isbn13).filter(OrderConsistsOf.consists_order_id == q[0]).\
-                filter(OrderConsistsOf.consists_isbn13 != isbn13).all()
-            if isbn13_list != []:
-                for i in isbn13_list:
-                    RECOMMENDATIONS.append(db.session.query(
-                        Book).filter(Book.isbn13 == i[0]).first())
 
     return render_template('orders/addorder.html', form=form, recommendations=RECOMMENDATIONS)
 
