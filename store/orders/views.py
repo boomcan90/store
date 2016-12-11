@@ -113,7 +113,6 @@ def order_book(isbn13):
         temp = db.session.query(Order.id).filter(Order.customer_id == order.customer_id).filter(Order.id != id).all()
         print(temp)
         q2.extend(temp)
-    print("q2: " + str(q2) + ", q2[0]: " + str(q2[0]))
     # [(1,), (5,)]
     for q in q2:
         isbn13_list = db.session.query(OrderConsistsOf.consists_isbn13).filter(OrderConsistsOf.consists_order_id == q[0]).\
